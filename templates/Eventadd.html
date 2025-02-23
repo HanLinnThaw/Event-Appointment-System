@@ -1,0 +1,181 @@
+{% extends "usernav.html" %}
+{% block content %}
+<div class="categories-main">
+    <div class="categories">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="alert-container">
+            {% for category, message in messages %}
+                {% if category == "event_success" %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        
+        <div class="nav-bar1">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 nav-bar">
+                <li class="breadcrumb-item text-sm">
+                    <button class="btn" id="sidebar-toggle1" type="button">
+                        <i class="fa-solid fa-sliders"></i>
+                    </button>
+                </li>
+                <li class="breadcrumb-item text-sm">
+                    <a class="opacity-5 text-white back-link" href="{{ url_for('admin_page') }}">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item text-sm">
+                    <a class="opacity-5 text-white back-link" href="{{ url_for('eventlist') }}">Event List</a>
+                </li>
+                <li class="breadcrumb-item text-sm text-white back-link active" aria-current="page">Add Event</li>
+            </ol>
+        </div>
+        <div class="col-12 col-lg-8 col-md-8">
+            <div class="container">
+                <div class="container categories-page-title1">
+                    <h3 class="underline1">Add New Event</h3>
+                </div>
+                <div class="category-form1">
+                    <div class="col-xl-9 col-md-9 col-sm-9 ml-3 add-events">
+                        <form method="POST" action="{{ url_for('eventadd') }}" enctype="multipart/form-data">
+                            <div class="mb-1">
+                                <label for="category" class="category-label">Event Name</label>
+                                <div class="row">
+                                    <div class="col-1"><i class="fa fa-user" id="icon_id"></i></div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" name="category" id="category" placeholder="Enter Event Name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-1">
+                                <label for="artisttype" class="category-label">Event Type</label>
+                                <div class="row">
+                                    <div class="col-1"><i class="fa-solid fa-user" id="add-update_icon"></i></div>
+                                    <div class="col">
+                                        <select class="form-select form-control" id="eventtype" name="eventtype" required>
+                                            <option selected value="" disabled>Choose Event Type</option>
+                                            {% for category in categories %}
+                                            <option value="{{ category[0] }}">{{ category[1] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-1">
+                                <label for="description" class="category-label">Event Description</label>
+                                <div class="row">
+                                    <div class="col-1"><i class="fa fa-user" id="icon_id"></i></div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" name="description" id="description" placeholder="Enter Event's Description" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="mb-1">
+                                        <label for="date" class="category-label">Date</label>
+                                        <div class="row">
+                                            <div class="col-1"><i class="fa fa-calendar" id="icon_id"></i></div>
+                                            <div class="col">
+                                                <input type="date" class="form-control" name="date" id="date" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="mb-1">
+                                        <label for="time" class="category-label">Time</label>
+                                        <div class="row">
+                                            <div class="col-1"><i class="fa fa-clock" id="icon_id"></i></div>
+                                            <div class="col">
+                                                <!-- Time Input Box with Styling -->
+                                                <input type="time" class="form-control time-box" name="time" id="time" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="mb-1">
+                                        <label for="price" class="category-label">Price</label>
+                                        <div class="row">
+                                            <div class="col-1"><i class="fa fa-dollar" id="icon_id"></i></div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" name="price" id="price" placeholder="Enter Event Price per person" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="mb-1">
+                                        <label for="sponsorphoto" class="category-label">Photo</label>
+                                        <div class="row">
+                                            <div class="col-1"><i class="fa fa-photo" id="icon_id"></i></div>
+                                            <div class="col">
+                                                <input type="file" class="form-control-file form-control" name="photo" id="sponsorphoto" style="display: block;" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="mb-1">
+                                        <label for="food" class="category-label">Food:</label>
+                                        <div class="row">
+                                            <div class="col-1"><i class="fa fa-utensils" id="icon_id"></i></div>
+                                            <div class="col">
+                                                <select class="form-select form-control" id="food" name="food" required>
+                                                    <option selected value="" disabled>Choose Food</option>
+                                                    {% for food in foods %}
+                                                    <option value="{{ food[0] }}">{{ food[1] }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="mb-1">
+                                        <label for="person" class="category-label">Total-Person</label>
+                                        <div class="row">
+                                            <div class="col-1"><i class="fa fa-user" id="icon_id"></i></div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" name="person" id="person" placeholder="Enter Event Max-person" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-1">
+                                <label for="artisttype" class="Sponsor-label">Sponsors</label>
+                                <div class="row">
+                                    <div class="col-1"><i class="fa-solid fa-user" id="add-update_icon"></i></div>
+                                    <div class="col">
+                                        <select class="form-select form-control" id="artisttype" name="artisttype" required>
+                                            <option selected value="" disabled>Choose Event's Sponsor</option>
+                                            {% for sponsor in sponsors %}
+                                                <option value="{{ sponsor[0] }}">{{ sponsor[1] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex flex-row-reverse category-btn">
+                                <button type="submit" class="btn btn-outline-light3 m-0" id="add-button">Add Event</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

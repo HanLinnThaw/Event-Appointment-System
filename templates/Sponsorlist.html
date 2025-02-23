@@ -1,0 +1,175 @@
+{% extends "usernav.html" %}
+{% block content %}
+<div class="categories-main">
+    <div class="categories">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-messages">
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} mt-2">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% endwith %}
+        <div class="nav-bar">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 nav-bar">
+                <li class="breadcrumb-item text-sm">
+                    <button class="btn" id="sidebar-toggle1" type="button">
+                        <i class="fa-solid fa-sliders"></i>
+                    </button>
+                </li>
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white back-link" href="{{url_for('admin_page')}}">Dashboard</a></li>
+                <li class="breadcrumb-item text-sm text-white back-link active" aria-current="page">Sponsor List</li>
+            </ol>
+        </div>
+        <div class="row">
+            <div class="col-12 col-xl-6 col-md-6">
+                <div class="container sponsor-page-title">
+                    <h3 class="underline1">Total Sponsors</h3>
+                </div>
+                <div class="container-fluid pt-0 sponsor-count-card">
+                    <div class="col-xl-10 col-md-12 col-sm-10 mb-xl-0 mb-4 d-flex" id="card-bo">
+                        <div class="card flex-fill border-0 illustration">
+                            <div class="card-body p-0" id="card1">
+                                <div class="row">
+                                    <div class="col-12 col-xl-8 col-lg-4 col-md-12">
+                                        <div class="pl-3 pr-3 pt-3 pb-1 m-1 text-card">
+                                            <h3>Sponsor List</h3>
+                                            <h5 class="mb-0 pt-2">Total Sponsors</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 count-part">
+                                        <div class="count-number">
+                                            {% if searchdata %}
+                                            <p>{{ searchdata|length }}</p>
+                                            {% else %}
+                                            <p>{{ sponsors|length }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row bottom-part">
+                                    <div class="col-md-6">
+                                        <div class="icon-middle pt-2">
+                                            <span class="icon">
+                                                <i class="fa fa-user card-icon"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex flex-row-reverse btn-part">
+                                            <a href="/updatesponsor">
+                                                <button type="button" class="btn btn-outline-light3 p-2" id="add-button1">Update Sponsor</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-6 col-md-6">
+                <div class="container sponsor-page-title">
+                    <h3 class="underline1">Add Sponsor</h3>
+                </div>
+                <div class="col-xl-9 col-md-9 col-sm-9 add-sponsors">
+                    <form method="POST" action="/sponsorlist" enctype="multipart/form-data">
+                        <div class="mb-3 input-box">
+                            <label for="sponsorname" class="form-label2">Sponsor Name</label>
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="fa-solid fas fa-building" id="add-update_icon"></i>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="sponsorname" name="sponsorname" placeholder="Enter Sponsor Name" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 input-box">
+                            <label for="Description" class="form-label2">Description</label>
+                            <div class="row">
+                                <div class="col-1">
+                                    <i class="fa-solid fas fa-file-alt" id="add-update_icon"></i>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="Description" name="Description" placeholder="Enter Description (max=200 words)" maxlength="200" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 input-box">
+                            <label for="sponsorphoto" class="form-label2">Upload Photo</label>
+                            <div class="row">
+                              <div class="col-1"><i class="fa-solid fa-image" id="add-update_icon"></i></div>
+                              <div class="col">
+                                <div class="col">
+                                  <input type="file" class="form-control-file form-control" name="photo" id="sponsorphoto" style="display: block;" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row-reverse category-btn">
+                            <button type="submit" class="btn btn-outline-light3 m-0" id="add-button">Add Sponsor</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container category-table">
+            <div class="sponsor-page-title1">
+                <h3 class="underline1">Sponsor Table</h3>
+            </div>
+            <div class="table1">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Sponsor ID</th>
+                            <th scope="col">Company Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Photo</th>
+                            <th scope="col" class="btn-user">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if searchdata %}
+                            {% for data in searchdata %}
+                                <tr>
+                                    <th scope="row">{{ data[0] }}</th>
+                                    <td>{{ data[1] }}</td>
+                                    <td>{{ data[3] }}</td>
+                                    <td>
+                                        <img src="{{data[2]}}" alt="Sponsor Photo" width="50" height="50">
+                                    </td>
+                                    <td class="btn-user">
+                                        <a href="/deletesponsor/{{ data[0] }}">
+                                            <i class="fas fa-trash red-icon"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            {% for sponsor in sponsors %}
+                                <tr>
+                                    <th scope="row">{{ sponsor[0] }}</th>
+                                    <td>{{ sponsor[1] }}</td>
+                                    <td>{{ sponsor[3] }}</td>
+                                    <td>
+                                        <img src="{{ sponsor[2] }}" alt="Sponsor Photo" width="50" height="50">
+                                    </td>
+                                    <td class="btn-user">
+                                        <a href="/deletesponsor/{{ sponsor[0] }}" onclick="return confirm('Are you sure you want to delete this sponsor?');">
+                                            <i class="fas fa-trash red-icon"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

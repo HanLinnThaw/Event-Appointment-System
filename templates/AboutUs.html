@@ -1,0 +1,105 @@
+{% extends "usernav.html" %}
+{% block content %}
+    <div class="about-main">
+        <div class="row">
+            <div class="col-12 col-md-5">
+                <div class="about-tex">
+                    <img src="{{setting['photo']}}" class="upper-img image-fluid" alt="...">
+                </div>
+            </div>
+            <div class="col-12 col-md-7">
+                <div class="about-text-main">
+                    <h1 class="underline">{{setting['firsttitle']}}</h1>
+                    <h3>{{setting['secondtitle']}}</h3>
+                </div>
+                <div class="container">
+                    <div class="text-cont1">
+                        <h4>{{setting['firstsmalltitle']}}</h4>
+                        <p>{{setting['firstsmallparagraph']}}</p>
+                    </div>
+                    <div class="text-cont1">
+                        <h4>{{setting['secondsmalltitle']}}</h4>
+                        <p>{{setting['secondsmallparagraph']}}</p>
+                    </div>
+                    <div class="contact-button">
+                        <button type="submit" class="btn btn-artist-list1" onclick="window.location.href='/home'"><a href="">Book Now</a></button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="services">
+        <div class="text-con">
+            <h1>{{setting['servicetitle1']}}</h1>
+            <h4>{{setting['servicetitle2']}}</h4>
+        </div>
+        <div class="card-wrapper">
+            <div class="container">
+                <div class="row serv-container">
+                  <div class="col-lg-6 col-md-12 des"> 
+                    <div class="card" id="album-card" onclick="">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-3 icon-part">
+                            <img src="{{setting['card1photo']}}" class="upper-img2 image-fluid" alt="..." id="card1">
+                          </div>
+                          <div class="col-12 col-md-9">
+                            <h5>{{setting['card1title']}}</h5>
+                            <p>{{setting['card1second']}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-12 des"> 
+                    <div class="card" id="album-card" onclick="">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-3 icon-part">
+                            <img src="{{setting['card2photo']}}" class="upper-img2 image-fluid" alt="..." id="card1">
+                          </div>
+                          <div class="col-12 col-md-9">
+                            <h5>{{setting['card2title']}}</h5>
+                            <p>{{setting['card2second']}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-12 des"> 
+                    <div class="card" id="album-card" onclick="">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-3 icon-part">
+                            <img src="{{setting['card3photo']}}" class="upper-img2 image-fluid" alt="..." id="card1">
+                          </div>
+                          <div class="col-12 col-md-9">
+                            <h5>{{setting['card3title']}}</h5>
+                            <p>{{setting['card3second']}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-12 des"> 
+                    <div class="card" id="album-card" onclick="">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-3 icon-part">
+                            <img src="{{setting['card4photo']}}" class="upper-img2 image-fluid" alt="..." id="card1">
+                          </div>
+                          <div class="col-12 col-md-9">
+                            <h5>{{setting['card4title']}}</h5>
+                            <p>{{setting['card4second']}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+        </div>
+    </div>
+{% endblock %}

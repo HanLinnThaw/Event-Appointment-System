@@ -1,0 +1,209 @@
+{% extends "usernav.html" %}
+{% set active_page = 'home'%}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for (category, msg) in messages %}
+    <p class="alert alert-{{ category }}" style="margin-bottom:0px">{{ msg }}</p>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+    <div class="upper-photo">
+        <img src="{{setting['upperphoto']}}" class="upper-image image-fluid" alt="...">
+        <div class="row">
+            <div class="text-container">
+                <div class="text">
+                  <div class="h1-text">
+                    <h1>{{setting['firsttitle']}}</h1>
+                  </div>
+                    <h2>{{setting['secondtitle']}}</h2>
+                    <p>{{setting['thirdtitle']}}</p>
+                    <button type="submit" class="btn-login-signup p-2" onclick="window.location.href='/event'">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="small-about">
+        <div class="title">
+            <h1>{{setting['aboutfirsttitle']}}</h1>
+            <h3 class="underline">{{setting['aboutsecondtitle']}}</h3>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-12 col-md-6 text-part">
+              <div class="text-cont">
+                <h3>{{setting1['secondtitle']}}</h3>
+                <h4>{{setting1['firstsmalltitle']}}</h4>
+                <p>{{setting1['firstsmallparagraph']}}</p>
+              </div>
+              <div class="container">
+                <div class="row serv-container">
+                  <div class="col-lg-6 col-md-12 des"> 
+                    <div class="card card-bd" id="album-card" onclick="">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-5 icon-part img-part">
+                            <img id="imagePreview4" src="{{setting1['card1photo']}}" alt="Avatar" class="image-preview1 upper-img2">
+                          </div>
+                          <div class="col-12 col-md-7 body-card1">
+                            <h5>{{setting1['card1title']}}</h5>
+                            <p>{{setting1['card1second']}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-12 des"> 
+                    <div class="card card-bd" id="album-card" onclick="">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-5 icon-part img-part">
+                            <img id="imagePreview4" src="{{setting1['card2photo']}}" alt="Avatar" class="image-preview1 upper-img2">
+                          </div>
+                          <div class="col-12 col-md-7 body-card1">
+                            <h5>{{setting1['card2title']}}</h5>
+                            <p>{{setting1['card2second']}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              
+              <div class="contact-button">
+                <button type="submit" class="btn btn-artist-list" onclick="window.location.href='/home'"><a href="{{url_for('aboutus')}}">Learn More</a></button>
+            </div>
+          </div>
+    
+          <div class="col-12 col-md-6 about-ima">
+              <img src="{{setting1['photo']}}" class="about-image img-fluid" alt="...">
+          </div>
+      </div>
+      
+    </div>
+    <div class="container">
+      <div class="Event-card">
+        <div class="Title-part">
+          <h1 class="underline">{{setting['eventtitle']}}</h1>
+          <h4>{{setting['eventsecont']}}</h4>
+        </div>
+        <div class="Event-cards">
+          <div class="card-wrapper">
+            <div class="row gy-2">
+              {% for item in events_with_sponsors[:8] %}
+                <div class="col-md-3 col-sm-3 col-12">
+                  <div class="card1" id="album-card" onclick="window.location.href='#'">
+                    <div class="card-img">
+                      <img src="{{item['event']['image']}}" class="card-img1" alt="Event Image">
+                    </div>
+                    <div class="card-body event-card">
+                      <h5>{{ item['event']['name'] }}</h5>
+                      <p class="sponsorname">Sponsor: {{ item['sponsor']['name'] }}</p> <!-- Display sponsor name -->
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+    <div class="container news">
+      <div class="new">
+        <div class="text-con">
+            <h1 class="underline">{{setting['newstitle']}}</h1>
+            <h4>{{setting['newssecond']}}</h4>
+        </div>
+        <div class="Event-cards">
+          <div class="card-wrapper">
+            <div class="row gy-2">
+              <div class="col-md-4 col-sm-4 col-12">
+                <div class="card2" id="album-card" onclick="window.location.href=">
+                  <div class="card-img">
+                    <img src="{{setting['news1photo']}}" class="card-img" alt="">
+                  </div>
+                  <div class="card-body setting-news">
+                    <p class="new-title">{{setting['news1name']}}</p>
+                    <div class="link-div">
+                      <button type="submit" class="btn btn-new" onclick="window.location.href='/home'"><a href="{{setting['news1link']}}" class="read-more-link">Read more</a></button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4 col-12">
+                <div class="card2" id="album-card" onclick="window.location.href=">
+                  <div class="card-img">
+                    <img src="{{setting['news2photo']}}" class="card-img" alt="">
+                  </div>
+                  <div class="card-body setting-news">
+                    <p class="new-title">{{setting['news2name']}}</p>
+                    <div class="link-div">
+                      <button type="submit" class="btn btn-new" onclick="window.location.href='/home'"><a href="{{setting['news2link']}}" class="read-more-link">Read more</a></button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4 col-12">
+                <div class="card2" id="album-card" onclick="window.location.href=">
+                  <div class="card-img">
+                    <img src="{{setting['news3photo']}}" class="card-img" alt="">
+                  </div>
+                  <div class="card-body setting-news">
+                    <p class="new-title">{{setting['news3name']}}</p>
+                    <div class="link-div">
+                      <button type="submit" class="btn btn-new" onclick="window.location.href='/home'"><a href="{{setting['news3link']}}" class="read-more-link">Read more</a></button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sponsor-part">
+      <section class="pt-5 pb-5">
+        <div class="container">
+          <div class="Supporter-title">
+            <h1 class="underline">{{setting['supporterfirst']}}</h1>
+          </div>
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="mb-6 support-name underline">{{setting['supportersecond']}}</h3>
+                </div>
+                
+                <div class="col-12 swiper mySwiper">
+                            <div class="carousel-item swiper-wrapper">
+                              {% for sponsor in sponsorlist1 %}
+                              <div class="swiper-slide">
+                                  <div class="card">
+                                      <div class="card-img">
+                                          <img class="img-fluid sponsor-card-img" alt="{{ sponsor['image'] }}" src="{{ sponsor['image'] }}">
+                                      </div>
+                                      <div class="card-body sponsor-card-body">
+                                          <h4 class="card-title">{{ sponsor['name'] }}</h4>
+                                          <p class="card-text">{{ sponsor['Description'] }}</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              {% endfor %}
+                            </div>
+                            <div class="swiper-pagination"></div>
+                          </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+{% endblock %}

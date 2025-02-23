@@ -1,0 +1,732 @@
+{% extends "usernav.html" %}
+{% block content %}
+    <div class="about-main">
+        <div class="row">
+            <div class="col-12 col-md-5">
+                <div class="about-tex">
+                    <img src="{{setting['photo']}}" class="upper-img image-fluid" alt="..." id="image-part-update">
+                    <div class="row update-form-about" >
+
+                      <div class="col-12">
+                        <div class="edit-form9" id="edit-form9">
+                          <div class="tem-photo">
+                              <!-- Image preview section -->
+                              <img id="imagePreview1" src="{{setting['photo']}}" alt="Avatar" class="image-preview1 upper-img1">
+                          </div>
+                          <form action="/updateabout/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                              <div class="mb-1">
+                                  <div class="update-form-title">
+                                      <label for="category" class="update-label">Update Photo</label>
+                                  </div>
+                                  <div class="row edit-div">
+                                      <div class="col-10">
+                                          <input type="file" class="form-control-file form-control" name="photo" id="photo" style="display: block;" onchange="previewImage1(event)" required>
+                                      </div>
+                                      <script>
+                                      function previewImage1(event) {
+                                          const file = event.target.files[0];
+                                          const reader = new FileReader();
+                                      
+                                          reader.onload = function(e) {
+                                              document.getElementById('imagePreview1').src = e.target.result;
+                                          };
+                                      
+                                          if (file) {
+                                              reader.readAsDataURL(file);
+                                          }
+                                      }
+                                      </script>
+                                  </div>
+                              </div>
+                              <div class="d-flex flex-row-reverse category-btn">
+                                  <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                  <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form9" data-text="image-part-update">Cancel</button>
+                              </div>
+                          </form>
+                      </div>
+                      
+                      </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-12 col-md-7">
+              <div class="about-text-main" id="about-text-main">
+                  <h1 class="underline">{{setting['firsttitle']}}</h1>
+                  <h3>{{setting['secondtitle']}}</h3>
+              </div>
+          
+              <!-- This will be hidden or shown with a button or interaction -->
+              <div class="row update-form-about" >
+                <div class="col-7">
+                  <div class="edit-form6" id="edit-form6">
+                    <form action="/updateabout/{{setting['id']}}" method="POST">
+                        <div class="mb-1">
+                            <div class="update-form-title">
+                                <label for="category" class="update-label">Update First Title</label>
+                            </div>
+                            <div class="row edit-div">
+                                <div class="col-10">
+                                  <input type="text" class="form-control" name="firsttitle" id="firsttitle" placeholder="Enter firsttitle" value="{{setting['firsttitle']}}">
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="mb-1">
+                            <div class="update-form-title">
+                                <label for="category" class="update-label">Update Second Title</label>
+                            </div>
+                            <div class="row edit-div">
+                              <div class="col-10">
+                                <input type="text" class="form-control" name="secondtitle" id="secondtitle" placeholder="Enter Category" value="{{setting['secondtitle']}}">
+                              </div>
+                            </div>  
+                        </div>
+                        <div class="d-flex flex-row-reverse category-btn">
+                            <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                            <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form6" data-text="about-text-main">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+              </div>
+              
+              <div class="container">
+                  <!-- First Part -->
+                  <div class="firstpart">
+                      <div class="text-cont1" id="text-cont1">
+                          <h4>{{setting['firstsmalltitle']}}</h4>
+                          <p>{{setting['firstsmallparagraph']}}</p>
+                      </div>
+                      <div class="row update-form-about">
+                        <div class="col-7">
+                          <div class="edit-form7" id="edit-form7">
+                            <form action="/updateabout/{{setting['id']}}" method="POST">
+                                <div class="mb-1">
+                                    <div class="update-form-title">
+                                        <label for="category" class="update-label">Update First Paragraph Title</label>
+                                    </div>
+                                    <div class="row edit-div">
+                                        <div class="col-10">
+                                          <input type="text" class="form-control" name="firstsmalltitle" id="firstsmalltitle" placeholder="Enter firstsmalltitle" value="{{setting['firstsmalltitle']}}">
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="mb-1">
+                                    <div class="update-form-title">
+                                        <label for="category" class="update-label">Update First Paragraph</label>
+                                    </div>
+                                    <div class="row edit-div">
+                                      <div class="col-10">
+                                        <textarea class="form-control" name="firstsmallparagraph" id="firstsmallparagraph" required>{{setting['firstsmallparagraph']}}</textarea>
+                                      </div>
+                                    </div>  
+                                </div>
+                                <div class="d-flex flex-row-reverse category-btn">
+                                    <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                    <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form7" data-text="text-cont1">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                      </div>
+                  </div>
+          
+                  <!-- Second Part -->
+                  <div class="secondpart">
+                      <div class="text-cont1" id="text-cont2">
+                          <h4>{{setting['secondsmalltitle']}}</h4>
+                          <p>{{setting['secondsmallparagraph']}}</p>
+                      </div>
+                      <div class="row update-form-about">
+                        <div class="col-7">
+                          <div class="edit-form8" id="edit-form8">
+                            <form action="/updateabout/{{setting['id']}}" method="POST">
+                                <div class="mb-1">
+                                    <div class="update-form-title">
+                                        <label for="category" class="update-label">Update Second Paragraph Title</label>
+                                    </div>
+                                    <div class="row edit-div">
+                                        <div class="col-10">
+                                          <input type="text" class="form-control" name="secondsmalltitle" id="secondsmalltitle" placeholder="Enter firstsmalltitle" value="{{setting['secondsmalltitle']}}">
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="mb-1">
+                                    <div class="update-form-title">
+                                        <label for="category" class="update-label">Update Second Paragraph</label>
+                                    </div>
+                                    <div class="row edit-div">
+                                      <div class="col-10">
+                                        <textarea class="form-control" name="secondsmallparagraph" id="secondsmallparagraph" required>{{setting['secondsmallparagraph']}}</textarea>
+                                      </div>
+                                    </div>  
+                                </div>
+                                <div class="d-flex flex-row-reverse category-btn">
+                                    <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                    <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form8" data-text="text-cont2">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                      </div>
+                  </div>
+          
+                  <!-- Contact Button -->
+                  <div class="contact-button">
+                      <button type="submit" class="btn btn-artist-list1" onclick="window.location.href='/home'">
+                          <a href="">Book Now</a>
+                      </button>
+                  </div>
+              </div>
+          </div>
+          
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('about-text-main').onclick = function() {
+          document.getElementById('about-text-main').style.display = 'none';
+          document.getElementById('text-cont1').style.display = 'block';
+          document.getElementById('text-cont2').style.display = 'block';
+          document.getElementById('image-part-update').style.display = 'block';
+          document.getElementById('text-con').style.display = 'block';
+          document.getElementById('album-card1').style.display = 'block';
+          document.getElementById('album-card2').style.display = 'block';
+          document.getElementById('album-card3').style.display = 'block';
+          document.getElementById('album-card4').style.display = 'block';
+          document.getElementById('edit-form6').style.display = 'block';
+          document.getElementById('edit-form7').style.display = 'none';
+          document.getElementById('edit-form8').style.display = 'none';
+          document.getElementById('edit-form9').style.display = 'none';
+          document.getElementById('edit-form10').style.display = 'none';
+          document.getElementById('edit-form11').style.display = 'none';
+          document.getElementById('edit-form12').style.display = 'none';
+          document.getElementById('edit-form13').style.display = 'none';
+          document.getElementById('edit-form14').style.display = 'none';
+        };
+        document.getElementById('text-cont1').onclick = function() {
+          document.getElementById('about-text-main').style.display = 'block';
+          document.getElementById('text-cont1').style.display = 'none';
+          document.getElementById('text-cont2').style.display = 'block';
+          document.getElementById('image-part-update').style.display = 'block';
+          document.getElementById('text-con').style.display = 'block';
+          document.getElementById('album-card1').style.display = 'block';
+          document.getElementById('album-card2').style.display = 'block';
+          document.getElementById('album-card3').style.display = 'block';
+          document.getElementById('album-card4').style.display = 'block';
+          document.getElementById('edit-form6').style.display = 'none';
+          document.getElementById('edit-form7').style.display = 'block';
+          document.getElementById('edit-form8').style.display = 'none';
+          document.getElementById('edit-form9').style.display = 'none';
+          document.getElementById('edit-form10').style.display = 'none';
+          document.getElementById('edit-form11').style.display = 'none';
+          document.getElementById('edit-form12').style.display = 'none';
+          document.getElementById('edit-form13').style.display = 'none';
+          document.getElementById('edit-form14').style.display = 'none';
+        };
+        document.getElementById('text-cont2').onclick = function() {
+          document.getElementById('about-text-main').style.display = 'block';
+          document.getElementById('text-cont1').style.display = 'block';
+          document.getElementById('text-cont2').style.display = 'none';
+          document.getElementById('image-part-update').style.display = 'block';
+          document.getElementById('text-con').style.display = 'block';
+          document.getElementById('album-card1').style.display = 'block';
+          document.getElementById('album-card2').style.display = 'block';
+          document.getElementById('album-card3').style.display = 'block';
+          document.getElementById('album-card4').style.display = 'block';
+          document.getElementById('edit-form6').style.display = 'none';
+          document.getElementById('edit-form7').style.display = 'none';
+          document.getElementById('edit-form8').style.display = 'block';
+          document.getElementById('edit-form9').style.display = 'none';
+          document.getElementById('edit-form10').style.display = 'none';
+          document.getElementById('edit-form11').style.display = 'none';
+          document.getElementById('edit-form12').style.display = 'none';
+          document.getElementById('edit-form13').style.display = 'none';
+          document.getElementById('edit-form14').style.display = 'none';
+        };
+        document.getElementById('image-part-update').onclick = function() {
+          document.getElementById('about-text-main').style.display = 'block';
+          document.getElementById('text-cont1').style.display = 'block';
+          document.getElementById('text-cont2').style.display = 'block';
+          document.getElementById('image-part-update').style.display = 'none';
+          document.getElementById('text-con').style.display = 'block';
+          document.getElementById('album-card1').style.display = 'block';
+          document.getElementById('album-card2').style.display = 'block';
+          document.getElementById('album-card3').style.display = 'block';
+          document.getElementById('album-card4').style.display = 'block';
+          document.getElementById('edit-form6').style.display = 'none';
+          document.getElementById('edit-form7').style.display = 'none';
+          document.getElementById('edit-form8').style.display = 'none';
+          document.getElementById('edit-form9').style.display = 'block';
+          document.getElementById('edit-form10').style.display = 'none';
+          document.getElementById('edit-form11').style.display = 'none';
+          document.getElementById('edit-form12').style.display = 'none';
+          document.getElementById('edit-form13').style.display = 'none';
+          document.getElementById('edit-form14').style.display = 'none';
+        };
+        document.getElementById('text-con').onclick = function() {
+          document.getElementById('about-text-main').style.display = 'block';
+          document.getElementById('text-cont1').style.display = 'block';
+          document.getElementById('text-cont2').style.display = 'block';
+          document.getElementById('image-part-update').style.display = 'block';
+          document.getElementById('text-con').style.display = 'none';
+          document.getElementById('album-card1').style.display = 'block';
+          document.getElementById('album-card2').style.display = 'block';
+          document.getElementById('album-card3').style.display = 'block';
+          document.getElementById('album-card4').style.display = 'block';
+          document.getElementById('edit-form6').style.display = 'none';
+          document.getElementById('edit-form7').style.display = 'none';
+          document.getElementById('edit-form8').style.display = 'none';
+          document.getElementById('edit-form9').style.display = 'none';
+          document.getElementById('edit-form10').style.display = 'block';
+          document.getElementById('edit-form11').style.display = 'none';
+          document.getElementById('edit-form12').style.display = 'none';
+          document.getElementById('edit-form13').style.display = 'none';
+          document.getElementById('edit-form14').style.display = 'none';
+        };
+        document.getElementById('album-card1').onclick = function() {
+          document.getElementById('about-text-main').style.display = 'block';
+          document.getElementById('text-cont1').style.display = 'block';
+          document.getElementById('text-cont2').style.display = 'block';
+          document.getElementById('image-part-update').style.display = 'block';
+          document.getElementById('text-con').style.display = 'block';
+          document.getElementById('album-card1').style.display = 'none';
+          document.getElementById('album-card2').style.display = 'block';
+          document.getElementById('album-card3').style.display = 'block';
+          document.getElementById('album-card4').style.display = 'block';
+          document.getElementById('edit-form6').style.display = 'none';
+          document.getElementById('edit-form7').style.display = 'none';
+          document.getElementById('edit-form8').style.display = 'none';
+          document.getElementById('edit-form9').style.display = 'none';
+          document.getElementById('edit-form10').style.display = 'none';
+          document.getElementById('edit-form11').style.display = 'block';
+          document.getElementById('edit-form12').style.display = 'none';
+          document.getElementById('edit-form13').style.display = 'none';
+          document.getElementById('edit-form14').style.display = 'none';
+        };
+        document.getElementById('album-card2').onclick = function() {
+          document.getElementById('about-text-main').style.display = 'block';
+          document.getElementById('text-cont1').style.display = 'block';
+          document.getElementById('text-cont2').style.display = 'block';
+          document.getElementById('image-part-update').style.display = 'block';
+          document.getElementById('text-con').style.display = 'block';
+          document.getElementById('album-card1').style.display = 'block';
+          document.getElementById('album-card2').style.display = 'none';
+          document.getElementById('album-card3').style.display = 'block';
+          document.getElementById('album-card4').style.display = 'block';
+          document.getElementById('edit-form6').style.display = 'none';
+          document.getElementById('edit-form7').style.display = 'none';
+          document.getElementById('edit-form8').style.display = 'none';
+          document.getElementById('edit-form9').style.display = 'none';
+          document.getElementById('edit-form10').style.display = 'none';
+          document.getElementById('edit-form11').style.display = 'none';
+          document.getElementById('edit-form12').style.display = 'block';
+          document.getElementById('edit-form13').style.display = 'none';
+          document.getElementById('edit-form14').style.display = 'none';
+        };
+        document.getElementById('album-card3').onclick = function() {
+          document.getElementById('about-text-main').style.display = 'block';
+          document.getElementById('text-cont1').style.display = 'block';
+          document.getElementById('text-cont2').style.display = 'block';
+          document.getElementById('image-part-update').style.display = 'block';
+          document.getElementById('text-con').style.display = 'block';
+          document.getElementById('album-card1').style.display = 'block';
+          document.getElementById('album-card2').style.display = 'block';
+          document.getElementById('album-card3').style.display = 'none';
+          document.getElementById('album-card4').style.display = 'block';
+          document.getElementById('edit-form6').style.display = 'none';
+          document.getElementById('edit-form7').style.display = 'none';
+          document.getElementById('edit-form8').style.display = 'none';
+          document.getElementById('edit-form9').style.display = 'none';
+          document.getElementById('edit-form10').style.display = 'none';
+          document.getElementById('edit-form11').style.display = 'none';
+          document.getElementById('edit-form12').style.display = 'none';
+          document.getElementById('edit-form13').style.display = 'block';
+          document.getElementById('edit-form14').style.display = 'none';
+        };
+        document.getElementById('album-card4').onclick = function() {
+          document.getElementById('about-text-main').style.display = 'block';
+          document.getElementById('text-cont1').style.display = 'block';
+          document.getElementById('text-cont2').style.display = 'block';
+          document.getElementById('image-part-update').style.display = 'block';
+          document.getElementById('text-con').style.display = 'block';
+          document.getElementById('album-card1').style.display = 'block';
+          document.getElementById('album-card2').style.display = 'block';
+          document.getElementById('album-card3').style.display = 'block';
+          document.getElementById('album-card4').style.display = 'none';
+          document.getElementById('edit-form6').style.display = 'none';
+          document.getElementById('edit-form7').style.display = 'none';
+          document.getElementById('edit-form8').style.display = 'none';
+          document.getElementById('edit-form9').style.display = 'none';
+          document.getElementById('edit-form10').style.display = 'none';
+          document.getElementById('edit-form11').style.display = 'none';
+          document.getElementById('edit-form12').style.display = 'none';
+          document.getElementById('edit-form13').style.display = 'none';
+          document.getElementById('edit-form14').style.display = 'block';
+        };
+        const cancelButtons = document.querySelectorAll('.cancel-button');
+
+        // Add event listeners to all cancel buttons
+        cancelButtons.forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                // Get the target edit-form ID and text-cont ID from data attributes
+                const formId = event.target.getAttribute('data-target');
+                const textId = event.target.getAttribute('data-text');
+                
+                // Hide the form and show the text content
+                document.getElementById(formId).style.display = 'none';
+                document.getElementById(textId).style.display = 'block';
+            });
+        });
+      });
+    
+      
+    </script>
+    <div class="services">
+        <div class="text-con" id="text-con">
+          <h1>{{setting['servicetitle1']}}</h1>
+          <h4>{{setting['servicetitle2']}}</h4>
+        </div>
+        <div class="row update-form-about" >
+          <div class="col-6">
+            <div class="edit-form10" id="edit-form10">
+              <form action="/updateabout/{{setting['id']}}" method="POST">
+                  <div class="mb-1">
+                      <div class="update-form-title">
+                          <label for="category" class="update-label">Update Service Title1</label>
+                      </div>
+                      <div class="row edit-div">
+                          <div class="col-10">
+                            <input type="text" class="form-control" name="servicetitle1" id="servicetitle1" placeholder="Enter service title1" value="{{setting['servicetitle1']}}">
+                          </div>
+                      </div>
+                  </div>  
+                  <div class="mb-1">
+                      <div class="update-form-title">
+                          <label for="category" class="update-label">Update Service Title2</label>
+                      </div>
+                      <div class="row edit-div">
+                        <div class="col-10">
+                          <input type="text" class="form-control" name="servicetitle2" id="servicetitle2" placeholder="Enter servicetitle2" value="{{setting['servicetitle2']}}">
+                        </div>
+                      </div>  
+                  </div>
+                  <div class="d-flex flex-row-reverse category-btn">
+                      <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                      <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form10" data-text="text-con">Cancel</button>
+                  </div>
+              </form>
+          </div>
+          </div>
+        </div>
+        <div class="card-wrapper">
+            <div class="container">
+                <div class="row serv-container">
+                  <div class="col-lg-6 col-md-12 des"> 
+                    <div class="card" id="album-card1" onclick="">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-3 icon-part">
+                            <img src="{{setting['card1photo']}}" class="upper-img2 image-fluid" alt="..." id="card1photo">
+                          </div>
+                          <div class="col-12 col-md-9">
+                            <h5>{{setting['card1title']}}</h5>
+                            <p>{{setting['card1second']}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row update-form-about" >
+                      <div class="col-9">
+                        <div class="edit-form11" id="edit-form11">
+                          <form action="/updateabout/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                            <div class="tem-photo">
+                              <img id="imagePreview2" src="{{setting['card1photo']}}" alt="Avatar" class="image-preview1 upper-img2">
+                          </div>
+                          <div class="mb-1">
+                            <div class="update-form-title">
+                                <label for="category" class="update-label">Update Card1 Photo</label>
+                            </div>
+                            <div class="row edit-div">
+                              <div class="col-10">
+                                <input type="file" class="form-control-file form-control" name="photo1" id="photo1" style="display: block;" onchange="previewImage2(event)">
+                              </div>
+                            </div>  
+                        </div>
+                              <div class="mb-1">
+                                  <div class="update-form-title">
+                                      <label for="category" class="update-label">Update Card1 Title</label>
+                                  </div>
+                                  <div class="row edit-div">
+                                      <div class="col-10">
+                                        <input type="text" class="form-control" name="card1title" id="card1title" placeholder="Enter card1 title" value="{{setting['card1title']}}">
+                                      </div>
+                                  </div>
+                              </div>  
+                              <div class="mb-1">
+                                  <div class="update-form-title">
+                                      <label for="category" class="update-label">Update Card1 Second</label>
+                                  </div>
+                                  <div class="row edit-div">
+                                    <div class="col-10">
+                                      <input type="text" class="form-control" name="card1second" id="card1second" placeholder="Enter card1 second" value="{{setting['card1second']}}">
+                                    </div>
+                                  </div>  
+                              </div>
+                              
+                              <div class="d-flex flex-row-reverse category-btn">
+                                  <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                  <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form11" data-text="album-card1">Cancel</button>
+                              </div>
+                          </form>
+                      </div>
+                      </div>
+                    </div>
+                    <script>
+                      function previewImage2(event) {
+                        const file = event.target.files[0];
+                        const reader = new FileReader();
+                    
+                        reader.onload = function(e) {
+                            document.getElementById('imagePreview2').src = e.target.result;
+                        };
+                    
+                        if (file) {
+                            reader.readAsDataURL(file);
+                        }
+                      }
+                    </script>
+                  </div>
+                  <div class="col-lg-6 col-md-12 des"> 
+                    <div class="card" id="album-card2" onclick="">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-3 icon-part">
+                            <img src="{{setting['card2photo']}}" class="upper-img2 image-fluid" alt="..." id="card1photo">
+                          </div>
+                          <div class="col-12 col-md-9">
+                            <h5>{{setting['card2title']}}</h5>
+                            <p>{{setting['card2second']}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row update-form-about" >
+                      <div class="col-9">
+                        <div class="edit-form12" id="edit-form12">
+                          <form action="/updateabout/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                            <div class="tem-photo">
+                              <img id="imagePreview3" src="{{setting['card2photo']}}" alt="Avatar" class="image-preview1 upper-img2">
+                          </div>
+                          <div class="mb-1">
+                            <div class="update-form-title">
+                                <label for="category" class="update-label">Update Card2 Photo</label>
+                            </div>
+                            <div class="row edit-div">
+                              <div class="col-10">
+                                <input type="file" class="form-control-file form-control" name="card2photo" id="card2photo" style="display: block;" onchange="previewImage3(event)">
+                              </div>
+                            </div>  
+                        </div>
+                              <div class="mb-1">
+                                  <div class="update-form-title">
+                                      <label for="category" class="update-label">Update Card2 Title</label>
+                                  </div>
+                                  <div class="row edit-div">
+                                      <div class="col-10">
+                                        <input type="text" class="form-control" name="card2title" id="card2title" placeholder="Enter card2 title" value="{{setting['card2title']}}">
+                                      </div>
+                                  </div>
+                              </div>  
+                              <div class="mb-1">
+                                  <div class="update-form-title">
+                                      <label for="category" class="update-label">Update Card2 Second</label>
+                                  </div>
+                                  <div class="row edit-div">
+                                    <div class="col-10">
+                                      <input type="text" class="form-control" name="card2second" id="card2second" placeholder="Enter card2 second" value="{{setting['card2second']}}">
+                                    </div>
+                                  </div>  
+                              </div>
+                              
+                              <div class="d-flex flex-row-reverse category-btn">
+                                  <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                  <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form12" data-text="album-card2">Cancel</button>
+                              </div>
+                          </form>
+                      </div>
+                      </div>
+                    </div>
+                    <script>
+                      function previewImage3(event) {
+                        const file = event.target.files[0];
+                        const reader = new FileReader();
+                    
+                        reader.onload = function(e) {
+                            document.getElementById('imagePreview3').src = e.target.result;
+                        };
+                    
+                        if (file) {
+                            reader.readAsDataURL(file);
+                        }
+                      }
+                    </script>
+                  </div>
+                  <div class="col-lg-6 col-md-12 des"> 
+                    <div class="card" id="album-card3" onclick="">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-3 icon-part">
+                            <img src="{{setting['card3photo']}}" class="upper-img2 image-fluid" alt="..." id="card1photo">
+                          </div>
+                          <div class="col-12 col-md-9">
+                            <h5>{{setting['card3title']}}</h5>
+                            <p>{{setting['card3second']}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row update-form-about" >
+                      <div class="col-9">
+                        <div class="edit-form13" id="edit-form13">
+                          <form action="/updateabout/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                            <div class="tem-photo">
+                              <img id="imagePreview4" src="{{setting['card3photo']}}" alt="Avatar" class="image-preview1 upper-img2">
+                          </div>
+                          <div class="mb-1">
+                            <div class="update-form-title">
+                                <label for="category" class="update-label">Update Card3 Photo</label>
+                            </div>
+                            <div class="row edit-div">
+                              <div class="col-10">
+                                <input type="file" class="form-control-file form-control" name="card3photo" id="card3photo" style="display: block;" onchange="previewImage4(event)">
+                              </div>
+                            </div>  
+                        </div>
+                              <div class="mb-1">
+                                  <div class="update-form-title">
+                                      <label for="category" class="update-label">Update Card3 Title</label>
+                                  </div>
+                                  <div class="row edit-div">
+                                      <div class="col-10">
+                                        <input type="text" class="form-control" name="card3title" id="card3title" placeholder="Enter card3 title" value="{{setting['card3title']}}">
+                                      </div>
+                                  </div>
+                              </div>  
+                              <div class="mb-1">
+                                  <div class="update-form-title">
+                                      <label for="category" class="update-label">Update Card Second</label>
+                                  </div>
+                                  <div class="row edit-div">
+                                    <div class="col-10">
+                                      <input type="text" class="form-control" name="card3second" id="card3second" placeholder="Enter card3 second" value="{{setting['card3second']}}">
+                                    </div>
+                                  </div>  
+                              </div>
+                              
+                              <div class="d-flex flex-row-reverse category-btn">
+                                  <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                  <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form13" data-text="album-card3">Cancel</button>
+                              </div>
+                          </form>
+                      </div>
+                      </div>
+                    </div>
+                    <script>
+                      function previewImage4(event) {
+                        const file = event.target.files[0];
+                        const reader = new FileReader();
+                    
+                        reader.onload = function(e) {
+                            document.getElementById('imagePreview4').src = e.target.result;
+                        };
+                    
+                        if (file) {
+                            reader.readAsDataURL(file);
+                        }
+                      }
+                    </script>
+                  </div>
+                  <div class="col-lg-6 col-md-12 des"> 
+                    <div class="card" id="album-card4" onclick="">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-3 icon-part">
+                            <img src="{{setting['card4photo']}}" class="upper-img2 image-fluid" alt="..." id="card1photo">
+                          </div>
+                          <div class="col-12 col-md-9">
+                            <h5>{{setting['card4title']}}</h5>
+                            <p>{{setting['card4second']}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row update-form-about" >
+                      <div class="col-9">
+                        <div class="edit-form14" id="edit-form14">
+                          <form action="/updateabout/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                            <div class="tem-photo">
+                              <img id="imagePreview5" src="{{setting['card4photo']}}" alt="Avatar" class="image-preview1 upper-img2">
+                          </div>
+                          <div class="mb-1">
+                            <div class="update-form-title">
+                                <label for="category" class="update-label">Update Card4 Photo</label>
+                            </div>
+                            <div class="row edit-div">
+                              <div class="col-10">
+                                <input type="file" class="form-control-file form-control" name="card4photo" id="card4photo" style="display: block;" onchange="previewImage5(event)">
+                              </div>
+                            </div>  
+                        </div>
+                              <div class="mb-1">
+                                  <div class="update-form-title">
+                                      <label for="category" class="update-label">Update Card4 Title</label>
+                                  </div>
+                                  <div class="row edit-div">
+                                      <div class="col-10">
+                                        <input type="text" class="form-control" name="card4title" id="card4title" placeholder="Enter card1 title" value="{{setting['card4title']}}">
+                                      </div>
+                                  </div>
+                              </div>  
+                              <div class="mb-1">
+                                  <div class="update-form-title">
+                                      <label for="category" class="update-label">Update Card4 Second</label>
+                                  </div>
+                                  <div class="row edit-div">
+                                    <div class="col-10">
+                                      <input type="text" class="form-control" name="card4second" id="card4second" placeholder="Enter card4 second" value="{{setting['card4second']}}">
+                                    </div>
+                                  </div>  
+                              </div>
+                              
+                              <div class="d-flex flex-row-reverse category-btn">
+                                  <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                  <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form14" data-text="album-card4">Cancel</button>
+                              </div>
+                          </form>
+                      </div>
+                      </div>
+                    </div>
+                    <script>
+                      function previewImage5(event) {
+                        const file = event.target.files[0];
+                        const reader = new FileReader();
+                    
+                        reader.onload = function(e) {
+                            document.getElementById('imagePreview5').src = e.target.result;
+                        };
+                    
+                        if (file) {
+                            reader.readAsDataURL(file);
+                        }
+                      }
+                    </script>
+                  </div>
+                  
+                 
+                  
+                </div>
+              </div>
+        </div>
+    </div>
+
+{% endblock %}

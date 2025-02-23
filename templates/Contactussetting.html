@@ -1,0 +1,323 @@
+{% extends "usernav.html" %}
+{% block content %}
+    <div class="aboutus-container">
+        <div class="container tex-part">
+            <div class="row">
+                <div class="col-12 col-md-5">
+                    <div class="about-text">
+                        <div class="contact-tile">
+                            <div class="cont-tit" id="contact-tit">
+                                <h1 value="{{setting['maintitle']}}">{{setting['maintitle']}}</h1>
+                            </div>
+                            <div class="edit-form" id="edit-form">
+                              <form action="/updatecontact/{{setting['id']}}" method="POST">
+                                <div class="mb-1">
+                                  <div class="update-form-title">
+                                    <label for="category" class="category-label">Update Main Title</label>
+                                  </div>
+                    
+                                  <div class="row edit-div">
+
+                                    <div class="col-9"><input type="text" class="form-control" name="new-title" id="new-title" placeholder="Enter Category" value="{{setting['maintitle']}}"></div>
+                                </div>  
+                               
+                                <div class="d-flex flex-row-reverse category-btn">
+                                    <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                    <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form" data-text="contact-tit">Cancel</button>
+                                </div>
+                                </div>
+                              </form>
+
+                            </div>
+                            <div class="small-tit" id="small-tit">
+                              <h4>{{setting['secondtitle']}}</h4>
+                          </div>
+                          <div class="edit-form1" id="edit-form1">
+                            <form action="/updatecontact/{{setting['id']}}" method="POST">
+                              <div class="mb-1">
+                                <div class="update-form-title">
+                                  <label for="category" class="category-label">Update Second Title</label>
+                                </div>
+                  
+                                <div class="row edit-div">
+
+                                  <div class="col-10"><input type="text" class="form-control" name="second-title" id="second-title" placeholder="Enter Category" value="{{setting['secondtitle']}}"></div>
+                              </div>  
+                             
+                              <div class="d-flex flex-row-reverse category-btn">
+                                  <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                  <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form1" data-text="small-tit">Cancel</button>
+                              </div>
+                              </div>
+                            </form>
+
+                          </div>
+                          
+
+                            
+                            <p class="paragraph" id="paragraph">&emsp;{{setting['paragraph']}}</p>
+                            <div class="edit-form2" id="edit-form2">
+                              <form action="/updatecontact/{{setting['id']}}" method="POST">
+                                <div class="mb-1">
+                                  <div class="update-form-title">
+                                    <label for="category" class="category-label">Update paragraph</label>
+                                  </div>
+                    
+                                  <div class="row edit-div">
+                                    <div class="col-10">
+                                      <textarea class="form-control" name="paragraph" id="paragraph" cols="10" rows="5" class="form-control bg-light" value="" required>{{setting['paragraph']}}</textarea>
+                                    </div>
+                                </div>  
+                               
+                                <div class="d-flex flex-row-reverse category-btn">
+                                    <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                    <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form2" data-text="paragraph">Cancel</button>
+                                </div>
+                                </div>
+                              </form>
+  
+                            </div>
+
+                            <div class="contact-address">
+                              <div class="row">
+                                  <div class="col-md-1"><i class="fa fa-phone-square icon pr-3 contact-icon"></i></div>
+                                  <div class="col-md-11">
+                                    <h5 class="phone" id="phone1">{{setting['phone']}}</h5>
+                                  </div>
+                                  <div class="col-md-11">
+                                    <div class="edit-form3" id="edit-form3">
+                                      <form action="/updatecontact/{{setting['id']}}" method="POST">
+                                        <div class="mb-1">
+                                          <div class="update-form-title">
+                                            <label for="category" class="category-label">Update Phone No</label>
+                                          </div>
+                                          <div class="row edit-div">
+                                            <div class="col-10"><input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone" value="{{setting['phone']}}"></div>
+                                        </div>  
+                                       
+                                        <div class="d-flex flex-row-reverse category-btn">
+                                            <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                            <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form3" data-text="phone1">Cancel</button>
+                                        </div>
+                                        </div>
+                                      </form>
+          
+                                    </div>
+                                  </div>
+                              </div> 
+                            </div>
+                            <div class="contact-address">
+                              <div class="row">
+                                  <div class="col-md-1"><i class="fa fa-paper-plane icon pr-3 contact-icon" aria-hidden="true"></i></div>
+                                  <div class="col-md-11">
+                                    <h5 class="email" id="email">{{setting['email']}}</h5>
+
+                                    </div>
+                                  <div class="col-md-11">
+                                    <div class="edit-form4" id="edit-form4">
+                                      <form action="/updatecontact/{{setting['id']}}" method="POST">
+                                        <div class="mb-1">
+                                          <div class="update-form-title">
+                                            <label for="category" class="category-label">Update Email</label>
+                                          </div>
+                                          <div class="row edit-div">
+                                            <div class="col-10"><input type="text" class="form-control" name="email" id="email" placeholder="Enter Email" value="{{setting['email']}}"></div>
+                                        </div>  
+                                       
+                                        <div class="d-flex flex-row-reverse category-btn">
+                                            <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                            <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form4" data-text="email">Cancel</button>
+                                        </div>
+                                        </div>
+                                      </form>
+          
+                                    </div>
+                                  </div>
+                            </div>
+                          </div>
+                          <div class="contact-address">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <i class="fa fa-map icon pr-3 contact-icon"></i>
+                                </div>
+                                <div class="col-md-11">
+                                    <h5 class="location" id="location">
+                                      {{setting['location']}}
+                                    </h5>
+                                </div>
+                                <div class="col-md-11">
+                                  <div class="edit-form5" id="edit-form5">
+                                    <form action="/updatecontact/{{setting['id']}}" method="POST">
+                                      <div class="mb-1">
+                                        <div class="update-form-title">
+                                          <label for="category" class="category-label">Update Location</label>
+                                        </div>
+                                        <div class="row edit-div">
+                                          <div class="col-10"><input type="text" class="form-control" name="location" id="location" placeholder="Enter Location" value="{{setting['location']}}"></div>
+                                      </div>  
+                                     
+                                      <div class="d-flex flex-row-reverse category-btn">
+                                          <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                                          <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form5" data-text="location">Cancel</button>
+                                      </div>
+                                      </div>
+                                    </form>
+        
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                            <script>
+                              document.getElementById('contact-tit').onclick = function() {
+                                  document.getElementById('edit-form').style.display = 'block'; 
+                                  document.getElementById('edit-form1').style.display = 'none';  
+                                  document.getElementById('edit-form2').style.display = 'none';  
+                                  document.getElementById('edit-form3').style.display = 'none';  
+                                  document.getElementById('edit-form4').style.display = 'none';  
+                                  document.getElementById('edit-form5').style.display = 'none';  
+                                  document.getElementById('contact-tit').style.display = 'none';  
+                                  document.getElementById('small-tit').style.display = 'block'; 
+                                  document.getElementById('paragraph').style.display = 'block'; 
+                                  document.getElementById('phone').style.display = 'block'; 
+                                  document.getElementById('email').style.display = 'block'; 
+                                  document.getElementById('location').style.display = 'block'; 
+                              };
+                              document.getElementById('small-tit').onclick = function() {
+                                  document.getElementById('edit-form1').style.display = 'block';  
+                                  document.getElementById('edit-form').style.display = 'none';  
+                                  document.getElementById('edit-form2').style.display = 'none';  
+                                  document.getElementById('edit-form3').style.display = 'none'; 
+                                  document.getElementById('edit-form4').style.display = 'none'; 
+                                  document.getElementById('edit-form5').style.display = 'none'; 
+                                  document.getElementById('contact-tit').style.display = 'block';  
+                                  document.getElementById('small-tit').style.display = 'none';
+                                  document.getElementById('paragraph').style.display = 'block';
+                                  document.getElementById('phone').style.display = 'block';
+                                  document.getElementById('email').style.display = 'block';
+                                  document.getElementById('location').style.display = 'block';
+  
+                              };
+                              document.getElementById('paragraph').onclick = function() {
+                                  document.getElementById('edit-form2').style.display = 'block'; 
+                                  document.getElementById('edit-form').style.display = 'none';
+                                  document.getElementById('edit-form1').style.display = 'none';
+                                  document.getElementById('edit-form3').style.display = 'none';
+                                  document.getElementById('contact-tit').style.display = 'block';  
+                                  document.getElementById('small-tit').style.display = 'block';  
+                                  document.getElementById('phone').style.display = 'block';  
+                                  document.getElementById('paragraph').style.display = 'none';  
+                                  document.getElementById('email').style.display = 'block';  
+                                  document.getElementById('location').style.display = 'block';  
+  
+                              };
+                              document.getElementById('phone1').onclick = function() {
+                                  document.getElementById('edit-form3').style.display = 'block'; 
+                                  document.getElementById('edit-form').style.display = 'none';
+                                  document.getElementById('edit-form1').style.display = 'none';
+                                  document.getElementById('edit-form2').style.display = 'none';
+                                  document.getElementById('edit-form4').style.display = 'none';
+                                  document.getElementById('edit-form5').style.display = 'none';
+                                  document.getElementById('contact-tit').style.display = 'block';  
+                                  document.getElementById('small-tit').style.display = 'block';  
+                                  document.getElementById('paragraph').style.display = 'block';
+                                  document.getElementById('phone1').style.display = 'none';
+                                  document.getElementById('email').style.display = 'block';
+                                  document.getElementById('location').style.display = 'block';
+  
+                              };
+                              document.getElementById('email').onclick = function() {
+                                  document.getElementById('edit-form4').style.display = 'block'; 
+                                  document.getElementById('edit-form').style.display = 'none';
+                                  document.getElementById('edit-form1').style.display = 'none';
+                                  document.getElementById('edit-form2').style.display = 'none';
+                                  document.getElementById('edit-form3').style.display = 'none';
+                                  document.getElementById('edit-form5').style.display = 'none';
+                                  document.getElementById('contact-tit').style.display = 'block';  
+                                  document.getElementById('small-tit').style.display = 'block';  
+                                  document.getElementById('paragraph').style.display = 'block';
+                                  document.getElementById('phone').style.display = 'block';
+                                  document.getElementById('email').style.display = 'none';
+                                  document.getElementById('location').style.display = 'block';
+  
+                              };
+                              document.getElementById('location').onclick = function() {
+                                  document.getElementById('edit-form5').style.display = 'block'; 
+                                  document.getElementById('edit-form').style.display = 'none';
+                                  document.getElementById('edit-form1').style.display = 'none';
+                                  document.getElementById('edit-form2').style.display = 'none';
+                                  document.getElementById('edit-form3').style.display = 'none';
+                                  document.getElementById('edit-form4').style.display = 'none';
+                                  document.getElementById('contact-tit').style.display = 'block';  
+                                  document.getElementById('small-tit').style.display = 'block';  
+                                  document.getElementById('paragraph').style.display = 'block';
+                                  document.getElementById('phone').style.display = 'block';
+                                  document.getElementById('email').style.display = 'block';
+                                  document.getElementById('location').style.display = 'none';
+  
+                              };
+                              const cancelButtons = document.querySelectorAll('.cancel-button');
+                              cancelButtons.forEach(function(button) {
+                                button.addEventListener('click', function(event) {
+                                  const formId = event.target.getAttribute('data-target');
+                                  const textId = event.target.getAttribute('data-text');
+                                  document.getElementById(formId).style.display = 'none';
+                                  document.getElementById(textId).style.display = 'block';
+                                });
+                              });
+                            </script>
+                            
+                              
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-7 contact-form">
+                    <form class="msg-form" method="POST" action="/ContactUs">
+                        <div class="form-group">
+                            <label for="name" class="h6">User  Name</label>
+                            <div class="input-group border rounded">
+                                <div class="input-group-addon px-2 pt-1">
+                                    <i class="fa fa-user contact-icon"></i>
+                                </div>
+                                <input type="text" name="name" class="form-control" id="name" placeholder="User  Name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="h6">Email</label>
+                            <div class="input-group border rounded">
+                                <div class="input-group-addon px-2 pt-1">
+                                    <i class="fa fa-paper-plane contact-icon"></i>
+                                </div>
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="h6">Phone</label>
+                            <div class="input-group border rounded">
+                                <div class="input-group-addon px-2 pt-1">
+                                    <i class="fa fa-phone-square contact-icon"></i>
+                                </div>
+                                <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone Number" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="h6">Address</label>
+                            <div class="input-group border rounded">
+                                <div class="input-group-addon px-2 pt-1">
+                                    <i class="fa fa-map contact-icon"></i>
+                                </div>
+                                <input type="text" name="address" class="form-control" id="address" placeholder="Address" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="msgus" class="h6">Message</label>
+                            <textarea name="message" id="msgus" cols="10" rows="5" class="form-control bg-light" placeholder="Message" required></textarea>
+                        </div>
+                        <div class="form-group d-flex justify-content-end">
+                            <input type="submit" name="Send" class="btn btn-primary text-white" value="Send message">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

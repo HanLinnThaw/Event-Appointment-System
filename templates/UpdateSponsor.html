@@ -1,0 +1,118 @@
+{% extends "usernav.html" %}
+{% block content %}
+<div class="categories-main">
+    <div class="update-categories">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-messages">
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} mt-2">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% endwith %}
+        <div class="nav-bar">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 nav-bar">
+                <li class="breadcrumb-item text-sm">
+                    <button class="btn" id="sidebar-toggle1" type="button">
+                        <i class="fa-solid fa-sliders"></i>
+                    </button>
+                </li>
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white back-link" href="{{url_for('admin_page')}}">Dashboard</a></li>
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white back-link" href="{{url_for('sponsorlist')}}">Sponsor List</a></li>
+                <li class="breadcrumb-item text-sm text-white back-link active" aria-current="page">Update Sponsor</li>
+            </ol>
+        </div>
+        <div class="row">
+            <!-- Table Section -->
+            <div class="col-12 col-lg-7 col-md-7">
+                <div class="container category-table">
+                    <div class="categories-page-title1">
+                        <h3 class="underline1">Sponsor Table</h3>
+                    </div>
+                    <div class="table1">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">SponsorID</th>
+                                    <th scope="col">SponsorName</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Photo</th>
+                                    <th scope="col" class="text-update">Update</th>
+                                    <th scope="col" class="btn-user">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sponsor in sponsors %}
+                                <tr>
+                                    <th scope="row">{{ sponsor[0] }}</th>
+                                    <td>{{ sponsor[1] }}</td>
+                                    <td>{{ sponsor[3] }}</td>
+                                    <td>
+                                        {% if sponsor[2] %}
+                                        <img src="{{ sponsor[2] }}" alt="Sponsor Photo" width="50" height="50">
+                                        {% else %}
+                                        No Photo
+                                        {% endif %}
+                                    </td>
+                                    <td class="btn-update">
+                                        <a href="#"
+                                            onclick="document.getElementById('sponsorid').value = '{{ sponsor[0] }}';
+                                                     document.getElementById('sponsorname').value = '{{ sponsor[1] | replace("'", "\\'") }}';
+                                                     document.getElementById('Description').value = '{{ sponsor[3] | replace("'", "\\'") }}';">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td class="btn-user"><a href="/deletesponsor/{{ sponsor[0] }}"><i class="fas fa-trash red-icon"></i></a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Update Form Section -->
+            <div class="col-12 col-lg-5 col-md-5">
+                <div class="container upd-category">
+                    <div class="container update-sponsor-title">
+                        <h3 class="underline1">Update Sponsor</h3>
+                    </div>
+                    <div class="sponsor-form1">
+                        <div class="col-xl-11 col-md-11 col-sm-12 update-cat">
+                            <form method="POST" action="" enctype="multipart/form-data">
+                                <input type="hidden" id="sponsorid" name="sponsorid" />
+                                <div class="mb-3 input-box">
+                                    <label for="sponsorname" class="form-label2">Sponsor Name</label>
+                                    <div class="row">
+                                        <div class="col-1"><i class="fa-solid fas fa-building" id="add-update_icon"></i></div>
+                                        <div class="col"><input type="text" class="form-control" id="sponsorname" name="sponsorname" placeholder="Enter Sponsor Name" required></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 input-box">
+                                    <label for="Description" class="form-label2">Description</label>
+                                    <div class="row">
+                                        <div class="col-1"><i class="fa-solid fas fa-file-alt" id="add-update_icon"></i></div>
+                                        <div class="col"><input type="text" class="form-control" id="Description" name="Description" placeholder="Enter Description (max-words: 200)" maxlength="200" required></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 input-box">
+                                    <label for="sponsorphoto" class="form-label2">Upload Photo</label>
+                                    <div class="row">
+                                        <div class="col-1"><i class="fa-solid fa-image" id="add-update_icon"></i></div>
+                                        <div class="col"><input type="file" class="form-control-file form-control" name="photo" id="sponsorphoto" style="display: block;" /></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row-reverse category-btn">
+                                    <button type="submit" class="btn btn-outline-light3" id="add-button3">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

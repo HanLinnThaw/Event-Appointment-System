@@ -1,0 +1,759 @@
+{% extends "usernav.html" %}
+{% set active_page = 'home'%}
+{% block content %}
+    <div class="upper-photo" id="dashboard-photo">
+        <img src="{{setting['upperphoto']}}" class="upper-image image-fluid" alt="..." id="upperimage">
+        <div class="row">
+            <div class="text-container">
+                <div class="text" id="dashboard1">
+                  <div class="h1-text">
+                    <h1>{{setting['firsttitle']}}</h1>
+                  </div>
+                    <h2>{{setting['secondtitle']}}</h2>
+                    <p>{{setting['thirdtitle']}}</p>
+                    <button type="submit" class="btn-login-signup p-2" onclick="window.location.href='/event'">Book Now</button>
+                </div>
+                <div class="row update-form-about" >
+                  <div class="col-9">
+                    <div class="edit-1" id="edit-1">
+                      <form action="/updatedashboard/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                          <div class="mb-1">
+                              <div class="update-form-title">
+                                  <label for="category" class="update-label">Update First Title</label>
+                              </div>
+                              <div class="row edit-div">
+                                  <div class="col-10">
+                                    <input type="text" class="form-control" name="firsttitle" id="firsttitle" placeholder="Enter firsttitle" value="{{setting['firsttitle']}}">
+                                  </div>
+                              </div>
+                          </div>  
+                          <div class="mb-1">
+                              <div class="update-form-title">
+                                  <label for="category" class="update-label">Update Second Title</label>
+                              </div>
+                              <div class="row edit-div">
+                                <div class="col-10">
+                                  <input type="text" class="form-control" name="secondtitle" id="secondtitle" placeholder="Enter Category" value="{{setting['secondtitle']}}">
+                                </div>
+                              </div>  
+                          </div>
+                          <div class="mb-1">
+                              <div class="update-form-title">
+                                  <label for="category" class="update-label">Update Third Title</label>
+                              </div>
+                              <div class="row edit-div">
+                                <div class="col-10">
+                                  <input type="text" class="form-control" name="thirdtitle" id="thirdtitle" placeholder="Enter third title" value="{{setting['thirdtitle']}}">
+                                </div>
+                              </div>  
+                          </div>
+                          <div class="mb-1">
+                              <div class="update-form-title">
+                                  <label for="category" class="update-label">Background Image</label>
+                              </div>
+                              <div class="row edit-div">
+                                <div class="col-10">
+                                  <input type="file" class="form-control-file form-control" name="upperphoto" id="upperphoto" style="display: block;" onchange="upperimagepreview(event)" >
+                                </div>
+                                <script>
+                                  function upperimagepreview(event) {
+                                      const file = event.target.files[0];
+                                      const reader = new FileReader();
+                                  
+                                      reader.onload = function(e) {
+                                          document.getElementById('upperimage').src = e.target.result;
+                                      };
+                                  
+                                      if (file) {
+                                          reader.readAsDataURL(file);
+                                      }
+                                  }
+                                  </script>
+                              </div>  
+                          </div>
+                          <div class="d-flex flex-row-reverse category-btn">
+                              <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                              <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-1" data-text="dashboard1">Cancel</button>
+                          </div>
+                      </form>
+                  </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="small-about">
+        <div class="title" id="title">
+            <h1>{{setting['aboutfirsttitle']}}</h1>
+            <h3 class="underline">{{setting['aboutsecondtitle']}}</h3>
+        </div>
+        <div class="row update-form-about" >
+          <div class="col-5">
+            <div class="edit-2" id="edit-2">
+              <form action="/updatedashboard/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                  <div class="mb-1">
+                      <div class="update-form-title">
+                          <label for="category" class="update-label">Update First Title</label>
+                      </div>
+                      <div class="row edit-div">
+                          <div class="col-10">
+                            <input type="text" class="form-control" name="aboutfirsttitle" id="aboutfirsttitle" placeholder="Enter firsttitle" value="{{setting['aboutfirsttitle']}}">
+                          </div>
+                      </div>
+                  </div>  
+                  <div class="mb-1">
+                      <div class="update-form-title">
+                          <label for="category" class="update-label">Update Second Title</label>
+                      </div>
+                      <div class="row edit-div">
+                        <div class="col-10">
+                          <input type="text" class="form-control" name="aboutsecondtitle" id="aboutsecondtitle" placeholder="Enter Category" value="{{setting['aboutsecondtitle']}}">
+                        </div>
+                      </div>  
+                  </div>
+
+                  <div class="d-flex flex-row-reverse category-btn">
+                      <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                      <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-2" data-text="title">Cancel</button>
+                  </div>
+              </form>
+          </div>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-12 col-md-6 text-part">
+              <div class="text-cont">
+                  <h3>{{setting2['secondtitle']}}</h3>
+                  <h4>{{setting2['firstsmalltitle']}}</h4>
+                  <p>{{setting2['firstsmallparagraph']}}</p>
+              </div>
+              <div class="container">
+                <div class="row serv-container">
+                  <div class="col-lg-6 col-md-12 des"> 
+                    <div class="card" id="album-card" onclick="">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-5 icon-part">
+                            <img id="imagePreview4" src="{{setting2['card1photo']}}" alt="Avatar" class="image-preview1 upper-img2">
+                          </div>
+                          <div class="col-12 col-md-7">
+                            <h5>{{setting2['card1title']}}</h5>
+                            <p>{{setting2['card1second']}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-12 des"> 
+                    <div class="card" id="album-card" onclick="">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 col-md-5 icon-part">
+                            <img id="imagePreview4" src="{{setting2['card2photo']}}" alt="Avatar" class="image-preview1 upper-img2">
+                          </div>
+                          <div class="col-12 col-md-7">
+                            <h5>{{setting2['card2title']}}</h5>
+                            <p>{{setting2['card2second']}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              
+              <div class="contact-button">
+                <button type="submit" class="btn btn-artist-list" onclick="window.location.href='/home'"><a href="{{url_for('aboutus')}}">Learn More</a></button>
+            </div>
+          </div>
+    
+          <div class="col-12 col-md-6 about-ima">
+              <img src="{{setting2['photo']}}" class="about-image img-fluid" alt="...">
+          </div>
+      </div>
+      
+    </div>
+    <div class="container">
+      <div class="Event-card">
+        <div class="Title-part" id="Title-part">
+          <h1 class="underline">{{setting['eventtitle']}}</h1>
+          <h4>{{setting['eventsecont']}}</h4>
+        </div>
+        <div class="row update-form-about" >
+          <div class="col-5">
+            <div class="edit-3" id="edit-3">
+              <form action="/updatedashboard/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                  <div class="mb-1">
+                      <div class="update-form-title">
+                          <label for="category" class="update-label">Update First Title</label>
+                      </div>
+                      <div class="row edit-div">
+                          <div class="col-10">
+                            <input type="text" class="form-control" name="eventtitle" id="eventtitle" placeholder="Enter firsttitle" value="{{setting['eventtitle']}}">
+                          </div>
+                      </div>
+                  </div>  
+                  <div class="mb-1">
+                      <div class="update-form-title">
+                          <label for="category" class="update-label">Update Second Title</label>
+                      </div>
+                      <div class="row edit-div">
+                        <div class="col-10">
+                          <input type="text" class="form-control" name="eventsecont" id="eventsecont" placeholder="Enter Category" value="{{setting['eventsecont']}}">
+                        </div>
+                      </div>  
+                  </div>
+
+                  <div class="d-flex flex-row-reverse category-btn">
+                      <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                      <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-3" data-text="Title-part">Cancel</button>
+                  </div>
+              </form>
+          </div>
+          </div>
+        </div>
+
+        <div class="Event-cards">
+          <div class="card-wrapper">
+            <div class="row gy-2">
+              {% for item in events_with_sponsors[:8] %}
+                <div class="col-md-3 col-sm-3 col-12">
+                  <div class="card1" id="album-card" onclick="window.location.href='#'">
+                    <div class="card-img">
+                      <img src="{{item['event']['image']}}" class="card-img1" alt="Event Image">
+                    </div>
+                    <div class="card-body event-card">
+                      <h5>{{ item['event']['name'] }}</h5>
+                      <p class="sponsorname">Sponsor: {{ item['sponsor']['name'] }}</p> <!-- Display sponsor name -->
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+    <div class="container news">
+      <div class="new">
+        <div class="text-con" id="news">
+            <h1 class="underline">{{setting['newstitle']}}</h1>
+            <h4>{{setting['newssecond']}}</h4>
+        </div>
+        <div class="row update-form-about" >
+          <div class="col-5">
+            <div class="edit-4" id="edit-4">
+              <form action="/updatedashboard/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                  <div class="mb-1">
+                      <div class="update-form-title">
+                          <label for="category" class="update-label">Update First Title</label>
+                      </div>
+                      <div class="row edit-div">
+                          <div class="col-10">
+                            <input type="text" class="form-control" name="newstitle" id="newstitle" placeholder="Enter firsttitle" value="{{setting['newstitle']}}">
+                          </div>
+                      </div>
+                  </div>  
+                  <div class="mb-1">
+                      <div class="update-form-title">
+                          <label for="category" class="update-label">Update Second Title</label>
+                      </div>
+                      <div class="row edit-div">
+                        <div class="col-10">
+                          <input type="text" class="form-control" name="newssecond" id="newssecond" placeholder="Enter Category" value="{{setting['newssecond']}}">
+                        </div>
+                      </div>  
+                  </div>
+
+                  <div class="d-flex flex-row-reverse category-btn">
+                      <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                      <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-4" data-text="news">Cancel</button>
+                  </div>
+              </form>
+          </div>
+          </div>
+        </div>
+        <div class="Event-cards">
+          <div class="card-wrapper">
+            <div class="row gy-2">
+              <div class="col-md-4 col-sm-4 col-12">
+                <div class="card2" id="news-card1" onclick="window.location.href=">
+                  <div class="card-img">
+                    <img src="{{setting['news1photo']}}" class="news-img" alt="">
+                  </div>
+                  <div class="card-body setting-news">
+                    <p class="new-title">{{setting['news1name']}}</p>
+                    <div class="link-div">
+                      <button type="submit" class="btn btn-new" onclick="window.location.href='/home'"><a href="{{setting['news1link']}}" class="read-more-link">Read more</a></button>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="row update-form-about" >
+                  <div class="col-9">
+                    <div class="edit-5" id="edit-5">
+                      <form action="/updatedashboard/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                        <div class="tem-photo">
+                          <img id="news1" src="{{setting['news1photo']}}" alt="Avatar" class="image-preview1 upper-img2">
+                      </div>
+                      <div class="mb-1">
+                        <div class="update-form-title">
+                            <label for="category" class="update-label">Update News1 Photo</label>
+                        </div>
+                        <div class="row edit-div">
+                          <div class="col-10">
+                            <input type="file" class="form-control-file form-control" name="news1photo" id="news1photo" style="display: block;" onchange="newsImage1(event)" required>
+                          </div>
+                        </div>  
+                    </div>
+                          <div class="mb-1">
+                              <div class="update-form-title">
+                                  <label for="category" class="update-label">Update News1 Name</label>
+                              </div>
+                              <div class="row edit-div">
+                                  <div class="col-10">
+                                    <input type="text" class="form-control" name="news1name" id="news1name" placeholder="Enter card1 title" value="{{setting['news1name']}}">
+                                  </div>
+                              </div>
+                          </div>  
+                          <div class="mb-1">
+                              <div class="update-form-title">
+                                  <label for="category" class="update-label">Update News1 Link</label>
+                              </div>
+                              <div class="row edit-div">
+                                <div class="col-10">
+                                  <input type="text" class="form-control" name="news1link" id="news1link" placeholder="Enter news1 link" value="{{setting['news1link']}}">
+                                </div>
+                              </div>  
+                          </div>
+                          
+                          <div class="d-flex flex-row-reverse category-btn">
+                            <div class="row">
+                              <div class="col-lg-6 col-md-12" id="form-btn">
+                                <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                              </div>
+                              <div class="col-lg-6 col-md-12" id="form-btn">
+                                <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-form11" data-text="news-card1">Cancel</button>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+                  </div>
+                  </div>
+                </div>
+                <script>
+                  function newsImage1(event) {
+                    const file = event.target.files[0];
+                    const reader = new FileReader();
+                
+                    reader.onload = function(e) {
+                        document.getElementById('news1').src = e.target.result;
+                    };
+                
+                    if (file) {
+                        reader.readAsDataURL(file);
+                    }
+                  }
+                </script>
+              </div>
+              <div class="col-md-4 col-sm-4 col-12">
+                <div class="card2" id="news-card2" onclick="window.location.href=">
+                  <div class="card-img">
+                    <img src="{{setting['news2photo']}}" class="news-img" alt="">
+                  </div>
+                  <div class="card-body setting-news">
+                    <p class="new-title">{{setting['news2name']}}</p>
+                    <div class="link-div">
+                      <button type="submit" class="btn btn-new" onclick="window.location.href='/home'"><a href="{{setting['news2link']}}" class="read-more-link">Read more</a></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row update-form-about" >
+                  <div class="col-9">
+                    <div class="edit-6" id="edit-6">
+                      <form action="/updatedashboard/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                        <div class="tem-photo">
+                          <img id="news2" src="{{setting['news2photo']}}" alt="Avatar" class="image-preview1 upper-img2">
+                      </div>
+                      <div class="mb-1">
+                        <div class="update-form-title">
+                            <label for="category" class="update-label">Update News2 Photo</label>
+                        </div>
+                        <div class="row edit-div">
+                          <div class="col-10">
+                            <input type="file" class="form-control-file form-control" name="news2photo" id="news2photo" style="display: block;" onchange="newsImage2(event)" required>
+                          </div>
+                        </div>  
+                    </div>
+                          <div class="mb-1">
+                              <div class="update-form-title">
+                                  <label for="category" class="update-label">Update News2 Name</label>
+                              </div>
+                              <div class="row edit-div">
+                                  <div class="col-10">
+                                    <input type="text" class="form-control" name="news2name" id="news2name" placeholder="Enter News2 name" value="{{setting['news2name']}}">
+                                  </div>
+                              </div>
+                          </div>  
+                          <div class="mb-1">
+                              <div class="update-form-title">
+                                  <label for="category" class="update-label">Update News2 Link</label>
+                              </div>
+                              <div class="row edit-div">
+                                <div class="col-10">
+                                  <input type="text" class="form-control" name="news2link" id="news2link" placeholder="Enter news2 link" value="{{setting['news2link']}}">
+                                </div>
+                              </div>  
+                          </div>
+                          
+                          <div class="d-flex flex-row-reverse category-btn">
+                            <div class="row">
+                              <div class="col-lg-6 col-md-12" id="form-btn">
+                                <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                              </div>
+                              <div class="col-lg-6 col-md-12" id="form-btn">
+                                <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-6" data-text="news-card2">Cancel</button>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+                  </div>
+                  </div>
+                </div>
+                <script>
+                  function newsImage2(event) {
+                    const file = event.target.files[0];
+                    const reader = new FileReader();
+                
+                    reader.onload = function(e) {
+                        document.getElementById('news2').src = e.target.result;
+                    };
+                
+                    if (file) {
+                        reader.readAsDataURL(file);
+                    }
+                  }
+                </script>
+              </div>
+              <div class="col-md-4 col-sm-4 col-12">
+                <div class="card2" id="news-card3" onclick="window.location.href=">
+                  <div class="card-img">
+                    <img src="{{setting['news3photo']}}" class="news-img" alt="">
+                  </div>
+                  <div class="card-body setting-news">
+                    <p class="new-title">{{setting['news3name']}}</p>
+                    <div class="link-div">
+                      <button type="submit" class="btn btn-new" onclick="window.location.href='/home'"><a href="{{setting['news3link']}}" class="read-more-link">Read more</a></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row update-form-about" >
+                  <div class="col-9">
+                    <div class="edit-7" id="edit-7">
+                      <form action="/updatedashboard/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                        <div class="tem-photo">
+                          <img id="news3" src="{{setting['news3photo']}}" alt="Avatar" class="image-preview1 upper-img2">
+                      </div>
+                      <div class="mb-1">
+                        <div class="update-form-title">
+                            <label for="category" class="update-label">Update News3 Photo</label>
+                        </div>
+                        <div class="row edit-div">
+                          <div class="col-10">
+                            <input type="file" class="form-control-file form-control" name="news3photo" id="news3photo" style="display: block;" onchange="newsImage3(event)" required>
+                          </div>
+                        </div>  
+                    </div>
+                          <div class="mb-1">
+                              <div class="update-form-title">
+                                  <label for="category" class="update-label">Update News3 Name</label>
+                              </div>
+                              <div class="row edit-div">
+                                  <div class="col-10">
+                                    <input type="text" class="form-control" name="news3name" id="news3name" placeholder="Enter News3 name" value="{{setting['news3name']}}">
+                                  </div>
+                              </div>
+                          </div>  
+                          <div class="mb-1">
+                              <div class="update-form-title">
+                                  <label for="category" class="update-label">Update News3 Link</label>
+                              </div>
+                              <div class="row edit-div">
+                                <div class="col-10">
+                                  <input type="text" class="form-control" name="news3link" id="news3link" placeholder="Enter news3 link" value="{{setting['news3link']}}">
+                                </div>
+                              </div>  
+                          </div>
+                          
+                          <div class="d-flex flex-row-reverse category-btn">
+                            <div class="row">
+                              <div class="col-lg-6 col-md-12" id="form-btn">
+                                <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                              </div>
+                              <div class="col-lg-6 col-md-12" id="form-btn">
+                                <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-7" data-text="news-card3">Cancel</button>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+                  </div>
+                  </div>
+                </div>
+                <script>
+                  function newsImage3(event) {
+                    const file = event.target.files[0];
+                    const reader = new FileReader();
+                
+                    reader.onload = function(e) {
+                        document.getElementById('news3').src = e.target.result;
+                    };
+                
+                    if (file) {
+                        reader.readAsDataURL(file);
+                    }
+                  }
+                </script>
+              </div>
+              
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sponsor-part">
+      <section class="pt-5 pb-5">
+        <div class="container">
+          <div class="supporter" id="supporter-title">
+            <div class="Supporter-title">
+              <h1>{{setting['supporterfirst']}}</h1>
+            </div>
+            <div class="Supporter-tit">
+              <h3 class="mb-6">{{setting['supportersecond']}}</h3>
+            </div>
+          </div>
+          <div class="row update-form-about" >
+            <div class="col-5">
+              <div class="edit-8" id="edit-8">
+                <form action="/updatedashboard/{{setting['id']}}" method="POST" enctype="multipart/form-data">
+                    <div class="mb-1">
+                        <div class="update-form-title">
+                            <label for="category" class="update-label">Update First Title</label>
+                        </div>
+                        <div class="row edit-div">
+                            <div class="col-10">
+                              <input type="text" class="form-control" name="supporterfirst" id="supporterfirst" placeholder="Enter firsttitle" value="{{setting['supporterfirst']}}">
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="mb-1">
+                        <div class="update-form-title">
+                            <label for="category" class="update-label">Update Second Title</label>
+                        </div>
+                        <div class="row edit-div">
+                          <div class="col-10">
+                            <input type="text" class="form-control" name="supportersecond" id="supportersecond" placeholder="Enter Second Title" value="{{setting['supportersecond']}}">
+                          </div>
+                        </div>  
+                    </div>
+  
+                    <div class="d-flex flex-row-reverse category-btn">
+                        <button type="submit" class="btn btn-outline-light3" id="update-button">Update</button>
+                        <button type="button" class="btn btn-login1 cancel-button" id="cancel-button" data-target="edit-8" data-text="supporter-title">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+          </div>
+                
+          <div class="col-12 swiper mySwiper">
+            <div class="carousel-item swiper-wrapper">
+              {% for sponsor in sponsorlist1 %}
+              <div class="swiper-slide">
+                  <div class="card">
+                      <div class="card-img">
+                          <img class="img-fluid sponsor-card-img" alt="{{ sponsor['image'] }}" src="{{ sponsor['image'] }}">
+                      </div>
+                      <div class="card-body sponsor-card-body">
+                          <h4 class="card-title">{{ sponsor['name'] }}</h4>
+                          <p class="card-text">{{ sponsor['Description'] }}</p>
+                      </div>
+                  </div>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </section>
+    <script>
+      document.getElementById('dashboard1').onclick = function() {
+          document.getElementById('edit-1').style.display = 'block'; 
+          document.getElementById('edit-2').style.display = 'none'; 
+          document.getElementById('edit-3').style.display = 'none'; 
+          document.getElementById('edit-4').style.display = 'none'; 
+          document.getElementById('edit-5').style.display = 'none'; 
+          document.getElementById('edit-6').style.display = 'none'; 
+          document.getElementById('edit-7').style.display = 'none'; 
+          document.getElementById('edit-8').style.display = 'none'; 
+          document.getElementById('dashboard1').style.display = 'none'; 
+          document.getElementById('title').style.display = 'block'; 
+          document.getElementById('Title-part').style.display = 'block'; 
+          document.getElementById('news').style.display = 'block'; 
+          document.getElementById('news-card1').style.display = 'block'; 
+          document.getElementById('news-card2').style.display = 'block'; 
+          document.getElementById('news-card3').style.display = 'block'; 
+          document.getElementById('supporter-title').style.display = 'block'; 
+      };
+      document.getElementById('title').onclick = function() {
+          document.getElementById('edit-1').style.display = 'none'; 
+          document.getElementById('edit-2').style.display = 'block'; 
+          document.getElementById('edit-3').style.display = 'none'; 
+          document.getElementById('edit-4').style.display = 'none'; 
+          document.getElementById('edit-5').style.display = 'none'; 
+          document.getElementById('edit-6').style.display = 'none'; 
+          document.getElementById('edit-7').style.display = 'none'; 
+          document.getElementById('edit-8').style.display = 'none'; 
+          document.getElementById('dashboard1').style.display = 'block'; 
+          document.getElementById('title').style.display = 'none'; 
+          document.getElementById('Title-part').style.display = 'block'; 
+          document.getElementById('news').style.display = 'block'; 
+          document.getElementById('news-card1').style.display = 'block'; 
+          document.getElementById('news-card2').style.display = 'block'; 
+          document.getElementById('news-card3').style.display = 'block'; 
+          document.getElementById('supporter-title').style.display = 'block'; 
+      };
+      document.getElementById('Title-part').onclick = function() {
+          document.getElementById('edit-1').style.display = 'none'; 
+          document.getElementById('edit-2').style.display = 'none'; 
+          document.getElementById('edit-3').style.display = 'block'; 
+          document.getElementById('edit-4').style.display = 'none'; 
+          document.getElementById('edit-5').style.display = 'none'; 
+          document.getElementById('edit-6').style.display = 'none'; 
+          document.getElementById('edit-7').style.display = 'none'; 
+          document.getElementById('edit-8').style.display = 'none'; 
+          document.getElementById('dashboard1').style.display = 'block'; 
+          document.getElementById('title').style.display = 'block'; 
+          document.getElementById('Title-part').style.display = 'none'; 
+          document.getElementById('news').style.display = 'none'; 
+          document.getElementById('news-card1').style.display = 'none'; 
+          document.getElementById('news-card2').style.display = 'none'; 
+          document.getElementById('news-card3').style.display = 'none'; 
+          document.getElementById('supporter-title').style.display = 'none'; 
+      };
+      document.getElementById('news').onclick = function() {
+          document.getElementById('edit-1').style.display = 'none'; 
+          document.getElementById('edit-2').style.display = 'none'; 
+          document.getElementById('edit-3').style.display = 'none'; 
+          document.getElementById('edit-4').style.display = 'block'; 
+          document.getElementById('edit-5').style.display = 'none'; 
+          document.getElementById('edit-6').style.display = 'none'; 
+          document.getElementById('edit-7').style.display = 'none'; 
+          document.getElementById('edit-8').style.display = 'none'; 
+          document.getElementById('dashboard1').style.display = 'block'; 
+          document.getElementById('title').style.display = 'block'; 
+          document.getElementById('Title-part').style.display = 'block'; 
+          document.getElementById('news').style.display = 'none'; 
+          document.getElementById('news-card1').style.display = 'block'; 
+          document.getElementById('news-card2').style.display = 'block'; 
+          document.getElementById('news-card3').style.display = 'block'; 
+          document.getElementById('supporter-title').style.display = 'block'; 
+      };
+      document.getElementById('news-card1').onclick = function() {
+          document.getElementById('edit-1').style.display = 'none'; 
+          document.getElementById('edit-2').style.display = 'none'; 
+          document.getElementById('edit-3').style.display = 'none'; 
+          document.getElementById('edit-4').style.display = 'none'; 
+          document.getElementById('edit-5').style.display = 'block'; 
+          document.getElementById('edit-6').style.display = 'none'; 
+          document.getElementById('edit-7').style.display = 'none'; 
+          document.getElementById('edit-8').style.display = 'none'; 
+          document.getElementById('dashboard1').style.display = 'block'; 
+          document.getElementById('title').style.display = 'block'; 
+          document.getElementById('Title-part').style.display = 'block'; 
+          document.getElementById('news').style.display = 'block'; 
+          document.getElementById('news-card1').style.display = 'none'; 
+          document.getElementById('news-card2').style.display = 'block'; 
+          document.getElementById('news-card3').style.display = 'block'; 
+          document.getElementById('supporter-title').style.display = 'block'; 
+      };
+      document.getElementById('news-card2').onclick = function() {
+          document.getElementById('edit-1').style.display = 'none'; 
+          document.getElementById('edit-2').style.display = 'none'; 
+          document.getElementById('edit-3').style.display = 'none'; 
+          document.getElementById('edit-4').style.display = 'none'; 
+          document.getElementById('edit-5').style.display = 'none'; 
+          document.getElementById('edit-6').style.display = 'block'; 
+          document.getElementById('edit-7').style.display = 'none'; 
+          document.getElementById('edit-8').style.display = 'none'; 
+          document.getElementById('dashboard1').style.display = 'block'; 
+          document.getElementById('title').style.display = 'block'; 
+          document.getElementById('Title-part').style.display = 'block'; 
+          document.getElementById('news').style.display = 'block'; 
+          document.getElementById('news-card1').style.display = 'block'; 
+          document.getElementById('news-card2').style.display = 'none'; 
+          document.getElementById('news-card3').style.display = 'block'; 
+          document.getElementById('supporter-title').style.display = 'block'; 
+      };
+      document.getElementById('news-card3').onclick = function() {
+          document.getElementById('edit-1').style.display = 'none'; 
+          document.getElementById('edit-2').style.display = 'none'; 
+          document.getElementById('edit-3').style.display = 'none'; 
+          document.getElementById('edit-4').style.display = 'none'; 
+          document.getElementById('edit-5').style.display = 'none'; 
+          document.getElementById('edit-6').style.display = 'none'; 
+          document.getElementById('edit-7').style.display = 'block'; 
+          document.getElementById('edit-8').style.display = 'none'; 
+          document.getElementById('dashboard1').style.display = 'block'; 
+          document.getElementById('title').style.display = 'block'; 
+          document.getElementById('Title-part').style.display = 'block'; 
+          document.getElementById('news').style.display = 'block'; 
+          document.getElementById('news-card1').style.display = 'block'; 
+          document.getElementById('news-card2').style.display = 'block'; 
+          document.getElementById('news-card3').style.display = 'none'; 
+          document.getElementById('supporter-title').style.display = 'block'; 
+      };
+      document.getElementById('supporter-title').onclick = function() {
+          document.getElementById('edit-1').style.display = 'none'; 
+          document.getElementById('edit-2').style.display = 'none'; 
+          document.getElementById('edit-3').style.display = 'none'; 
+          document.getElementById('edit-4').style.display = 'none'; 
+          document.getElementById('edit-5').style.display = 'none'; 
+          document.getElementById('edit-6').style.display = 'none'; 
+          document.getElementById('edit-7').style.display = 'none'; 
+          document.getElementById('edit-8').style.display = 'block'; 
+          document.getElementById('dashboard1').style.display = 'block'; 
+          document.getElementById('title').style.display = 'block'; 
+          document.getElementById('Title-part').style.display = 'block'; 
+          document.getElementById('news').style.display = 'block'; 
+          document.getElementById('news-card1').style.display = 'block'; 
+          document.getElementById('news-card2').style.display = 'block'; 
+          document.getElementById('news-card3').style.display = 'block'; 
+          document.getElementById('supporter-title').style.display = 'none'; 
+      };
+      const cancelButtons = document.querySelectorAll('.cancel-button');
+
+    // Add event listeners to all cancel buttons
+    cancelButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            // Get the target edit-form ID and text-cont ID from data attributes
+            const formId = event.target.getAttribute('data-target');
+            const textId = event.target.getAttribute('data-text');
+            
+            // Hide the form and show the text content
+            document.getElementById(formId).style.display = 'none';
+            document.getElementById(textId).style.display = 'block';
+        });
+    });
+
+    </script>
+    </div>
+{% endblock %}

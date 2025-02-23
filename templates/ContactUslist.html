@@ -1,0 +1,109 @@
+{% extends "usernav.html" %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="alert-container">
+    {% for category, message in messages %}
+        {% if category == "event_success" %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+    <div class="categories-main">
+        <div class="categories">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                <li class="breadcrumb-item text-sm">
+                    <button class="btn" id="sidebar-toggle1" type="button">
+                        <i class="fa-solid fa-sliders"></i>
+                    </button>
+                </li>
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white back-link" href="{{url_for('admin_page')}}">Dashboard</a></li>
+                <li class="breadcrumb-item text-sm text-white back-link active" aria-current="page">Message List</li>
+              </ol>
+            <div class="row">
+                <div class="col-12 col-xl-6 col-md-6">
+                    <div class="container categories-page-title1">
+                        <h3 class="underline1">Total Message</h3>
+                    </div>
+                    <div class="container-fluid pt-0 us-count-card">   
+                        <div class="col-xl-10 col-sm-10 mb-xl-0 mb-4 d-flex" id="card-bo">
+                            <div class="card flex-fill border-0 illustration">
+                                <div class="card-body p-0" id="card1">
+                                    <div class="row">
+                                        <div class="row">
+                                          <div class="col-12 col-xl-8 col-md-8">
+                                            <div class="p-3 m-1 text-card">
+                                              <h3>Message List</h3>
+                                              <h5 class="mb-0">Total Messages</h5>
+                                              <div class="icon-middle">
+                                                <span class="icon"><i class="fa fa-message card-icon"></i></span>
+                                              </div>
+                                          </div>
+                                          </div>
+                                          <div class="col-12 col-xl-4 col-md-4 count-part">
+                                            <div class="count-number">
+                                              <p>{{message_count}}</p>
+                                          </div>
+                                          </div>
+                                        </div>
+                                        <div class="d-flex flex-row-reverse">
+
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                      </div>
+                </div>
+                
+            </div>
+
+            
+            <div class="container category-table">
+                <div class="categories-page-title1">
+                    <h3 class="underline1">Message Table</h3>
+                </div>
+                <div class="table1">
+                    <table class="table">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">Contact ID</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Phone</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Address</th>
+                          <th scope="col">Message</th>
+                          <th scope="col" class="btn-user">Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for message in messagelist %}
+                        <tr>
+                          <td>{{message['contactid']}}</td>
+                          <td>{{message['name']}}</td>
+                          <td>{{message['phone']}}</td>
+                          <td>{{message['email']}}</td>
+                          <td>{{message['address']}}</td>
+                          <td>{{message['message']}}</td>
+                          <td class="btn-user">
+                            <a href="{{ url_for('delete_contact', contactid=message['contactid']) }}" 
+                               onclick="return confirm('Are you sure you want to delete this user?');">
+                               <i class="fas fa-trash red-icon"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        {% endfor %}
+
+          
+                      </tbody>
+                    </table>
+                   </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

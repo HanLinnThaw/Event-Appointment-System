@@ -1,0 +1,149 @@
+{% extends "usernav.html" %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-messages">
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} mt-2">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% endwith %}
+<div class="user-management">
+    <div class="container userlist-container">
+        <div class="userlist-title">
+            <a href="/userlist" class="userlist-title">
+                <h1 class="underline1">User List</h1>
+            </a>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6 col-xl-6">
+                <div class="adminadd-title">
+                    <h3 class="underline1">Add New Admin</h3>
+                </div>
+                <div class="adminnew">
+                    <div class="col-md-11">
+                        <form class="Booking-form" method="POST" action="/addadmin">
+                            <div class="form-group">
+                                <label for="username" class="h6">UserName</label>
+                                <div class="input-group border rounded">
+                                    <div class="input-group-addon px-2 pt-1">
+                                        <i class="fa fa-user contact-icon"></i>
+                                    </div>
+                                    <input type="text" name="username" class="form-control" id="username" placeholder="UserName" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="h6">Email</label>
+                                <div class="input-group border rounded">
+                                    <div class="input-group-addon px-2 pt-1">
+                                        <i class="fa fa-paper-plane contact-icon"></i>
+                                    </div>
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="h6">Password</label>
+                                <div class="input-group border rounded">
+                                    <div class="input-group-addon px-2 pt-1">
+                                        <i class="fa fa-lock contact-icon"></i>
+                                    </div>
+                                    <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                                </div>
+                            </div>
+                            <div class="form-group d-flex justify-content-end">
+                                <input type="submit" class="btn btn-primary text-white" value="Add Admin">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-6">
+                <div class="adminadd-title">
+                    <h3 class="underline1">Total Users</h3>
+                </div>
+                <div class="container-fluid py-4 us-count-card">
+                    <div class="col-xl-10 col-sm-10 mb-xl-0 mb-4 d-flex" id="card-bo">
+                        <div class="card flex-fill border-0 illustration">
+                            <div class="card-body p-0" id="card1">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-12 col-xl-8 col-md-8">
+                                            <div class="p-3 m-1 text-card">
+                                                <h3 class="pt-2" >User List</h3>
+                                                <h5 class="mb-0 py-2">Total Users</h5>
+                                                <div class="icon-middle">
+                                                    <span class="icon"><i class="fa fa-user card-icon"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-xl-4 col-md-4 count-part">
+                                            <div class="count-number">
+                                                {% if users %}
+                                                <p>{{ users|length }}</p>
+                                                {% elif searchdata %}
+                                                <p>{{ searchdata|length }}</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row-reverse"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="confirmed-title">
+            <h3 class="underline1">Users List</h3>
+        </div>
+        <div class="table1">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">UserID</th>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col" class="btn-user">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if searchdata %}
+                        {% for data in searchdata %}
+                            <tr>
+                                <th scope="row">{{ data[0] }}</th>
+                                <td>{{ data[1] }}</td>
+                                <td>{{ data[2] }}</td>
+                                <td>{{ data[3] }}</td>
+                                <td class="btn-user">
+                                    <a href="/deleteuser/{{ data['0'] }}" onclick="return confirm('Are you sure you want to delete this user?');">
+                                        <i class="fas fa-trash red-icon"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor%}
+                    {% else %}
+                        {% for user in users %}
+                        <tr>
+                            <th scope="row">{{ user[0] }}</th>
+                            <td>{{ user[1] }}</td>
+                            <td>{{ user[2] }}</td>
+                            <td>{{ user[3] }}</td>
+                            <td class="btn-user">
+                                <a href="/deleteuser/{{ user[0] }}" onclick="return confirm('Are you sure you want to delete this user?');">
+                                    <i class="fas fa-trash red-icon"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

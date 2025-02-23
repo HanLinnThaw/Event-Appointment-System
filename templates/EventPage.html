@@ -1,0 +1,62 @@
+{% extends "usernav.html" %}
+{% block content %}
+<div class="Event-Page">
+    <div class="container event-page-body">
+        <div class="Event-Title">
+            <a href="/event" class="eventtit">
+                <h1 class="underline">Events</h1>
+            </a>
+            <div class="categories-button">
+                {% for cate in category %}
+                <button type="submit" class="btn categories-btn" onclick="window.location.href='eventbycategory/{{cate['Categoryid']}}'">{{cate['name']}}</button>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="Event-small-title">
+                    <h4 class="underline">Available Events</h4>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="Event-cards">
+                {% if events %}
+                <div class="card-wrapper">
+                    <div class="row gy-2">
+                        {% for event in events %}
+                        <div class="col-md-4 col-sm-4 col-12 card-container">
+                            <div class="card3" id="album-card" onclick="window.location.href='/eventdetail/{{ event['eventid'] }}'">
+                                <div class="card-img">
+                                    <img src="{{event['image']}}" 
+                                         class="card-img event-image" alt="{{ event['name'] }}">
+                                </div>
+                                <div class="card-body">
+                                    <p class="event-cat">{{ event['category_name'] }}</p>
+                                    <p class="event-titlle-part">{{ event['name'] }}</p>
+                                    <div class="row">
+                                        <div class="col-md-2 date">
+                                            <i class="fa fa-calendar" aria-hidden="true">:</i>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <p class="event-date">
+                                                {{ event['date'] }} {{ event['Time'] }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="no-events-message">
+                    <h3 class="text-center text-danger">No events found.</h3>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

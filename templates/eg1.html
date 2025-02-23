@@ -1,0 +1,57 @@
+/* Keep the position relative for the navbar */
+.navbar-collapse ul li {
+    position: relative;
+}
+
+/* Modify the hover effect for navbar links */
+.navbar-collapse ul li a.nav-link:before {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+    content: '';
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(10px);
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus {
+    color: white;
+    font-size: 20px;
+}
+
+/* Hover state for nav links */
+.navbar-collapse ul li:hover a.nav-link:before {
+    opacity: 1;
+    transform: translateY(0px);
+    bottom: 0px;
+    background: #dd4343;
+}
+
+/* Fix dropdown hover issue */
+.navbar-collapse ul li:hover .dropdown-menu {
+    display: block; /* Ensure dropdown stays visible */
+    opacity: 1; /* Add opacity transition */
+    visibility: visible; /* Make sure it's visible during hover */
+    transition: opacity 0.3s, visibility 0s 0.3s; /* Smooth visibility transition */
+}
+
+/* Adjust dropdown styling on hover */
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #dd4343;
+}
+
+/* Optional: Adding a small delay for hover transition */
+.navbar-collapse ul li .dropdown-menu {
+    display: none; /* Hide by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000; /* Ensure it stays on top */
+}

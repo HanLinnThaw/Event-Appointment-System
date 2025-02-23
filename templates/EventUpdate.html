@@ -1,0 +1,170 @@
+{% extends "usernav.html" %}
+
+{% block content %}
+<div class="categories-main">
+    <div class="categories">
+        <div class="nav-bar1">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 nav-bar">
+                <li class="breadcrumb-item text-sm">
+                    <button class="btn" id="sidebar-toggle1" type="button">
+                        <i class="fa-solid fa-sliders"></i>
+                    </button>
+                </li>
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white back-link" href="{{url_for('admin_page')}}">Dashboard</a></li>
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white back-link" href="{{url_for('eventlist')}}">Event List</a></li>
+                <li class="breadcrumb-item text-sm text-white back-link active" aria-current="page">Update Event</li>
+            </ol>
+        </div>
+        
+        <div class="col-12 col-lg-8 col-md-8">
+            <div class="container">
+                <div class="container categories-page-title1">
+                    <h3 class="underline1">Update Event</h3>
+                </div>
+                <div class="category-form1">
+                    <div class="col-xl-9 col-md-9 col-sm-9 ml-3 add-events">
+                        <form method="POST" enctype="multipart/form-data">
+                            <div class="mb-1">
+                                <label for="category" class="category-label">Event Name</label>
+                                <div class="row">
+                                    <div class="col-1"><i class="fa fa-user" id="icon_id"></i></div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" name="category" id="category" placeholder="Enter Event Name" value="{{ event.name }}">
+                                    </div>
+                                </div>  
+                            </div>
+                            
+                            <div class="mb-1">
+                                <label for="description" class="category-label">Event Description</label>
+                                <div class="row">
+                                    <div class="col-1"><i class="fa fa-user" id="icon_id"></i></div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" name="description" id="description" placeholder="Enter Event's Description" value="{{ event.detail }}">
+                                    </div>
+                                </div>  
+                            </div>
+                            
+                            <div class="mb-1">
+                                <label for="eventtype" class="category-label">Event Type</label>
+                                <div class="row">
+                                    <div class="col-1"><i class="fa-solid fa-user" id="add-update_icon"></i></div>
+                                    <div class="col">
+                                        <select class="form-select form-control" id="eventtype" name="eventtype" required>
+                                            <option value="{{ event.categoryid }}" selected>{{ event.categoryname }}</option>
+                                            {% for category in categories %}
+                                                <option value="{{ category[0] }}" {% if category[0] == event.categoryid %}selected{% endif %}>{{ category[1] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>                
+
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="mb-1">
+                                        <label for="date" class="category-label">Date</label>
+                                        <div class="row">
+                                            <div class="col-1"><i class="fa fa-calendar" id="icon_id"></i></div>
+                                            <div class="col">
+                                                <input type="date" class="form-control" name="date" id="date" value="{{ event.date }}">
+                                            </div>
+                                        </div>  
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="mb-1">
+                                        <label for="time" class="category-label">Time</label>
+                                        <div class="row">
+                                            <div class="col-1"><i class="fa fa-clock" id="icon_id"></i></div>
+                                            <div class="col">
+                                                <!-- Time Input Box with Existing Time Pre-filled -->
+                                                <input type="time" class="form-control time-box" name="time" id="time" value="{{ event_time }}" required>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <div class="mb-1">
+                                    <label for="food" class="category-label">Food:</label>
+                                    <div class="row">
+                                        <div class="col-1"><i class="fa fa-utensils" id="icon_id"></i></div>
+                                        <div class="col">
+                                            <select class="form-select form-control" id="food" name="food" required>
+                                                <option value="{{ foodname.foodid }}" selected>{{ foodname.foodname }}</option>
+                                                {% for food in foods %}
+                                                <option value="{{ food[0] }}" {% if food[0] == food.foodid %}selected{% endif %}>{{ food[1] }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                
+                                    </div>
+                                </div>
+                                
+                            
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="mb-1">
+                                        <label for="price" class="category-label">Price</label>
+                                        <div class="row">
+                                            <div class="col-1"><i class="fa fa-dollar" id="icon_id"></i></div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" name="price" id="price" placeholder="Enter Event Price per person" value="{{ event.price }}">
+                                            </div>
+                                        </div>  
+                                    </div>
+                                </div>    
+                                                            
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="mb-1">
+                                        <label for="person" class="category-label">Total-Person</label>
+                                        <div class="row">
+                                            <div class="col-1"><i class="fa fa-user" id="icon_id"></i></div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" name="person" id="person" placeholder="Enter Event Max-person" value="{{event.totalpersons}}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 input-box">
+                                <label for="photo" class="form-label2">Upload Photo</label>
+                                <div class="row">
+                                    <div class="col-1"><i class="fa-solid fa-image" id="add-update_icon"></i></div>
+                                    <div class="col">
+                                        <input type="file" class="form-control-file form-control" name="photo" id="photo" style="display: block;" />
+                                        {% if event.image %}
+                                            <div class="mt-2">
+                                                <img src="{{ event.image }}" alt="Current Image" class="img-fluid" />
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>  
+                            </div>
+                            
+                            <div class="mb-1">
+                                <label for="sponsor" class="Sponsor-label">Sponsors</label>
+                                <div class="row">
+                                    <div class="col-1"><i class="fa-solid fa-user" id="add-update_icon"></i></div>
+                                    <div class="col">
+                                        <select class="form-select form-control" id="sponsor" name="sponsor" required>
+                                            <option value="{{ event.sponsorid }}" selected>{{ event.sponsorname }}</option>
+                                            {% for sponsor in sponsors %}
+                                                <option value="{{ sponsor[0] }}" {% if sponsor[0] == event.sponsorid %}selected{% endif %}>{{ sponsor[1] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row-reverse category-btn">
+                                <button type="submit" class="btn btn-outline-light3 m-0" id="add-button">Update Event</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

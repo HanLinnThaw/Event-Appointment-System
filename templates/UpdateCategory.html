@@ -1,0 +1,133 @@
+{% extends "usernav.html" %} {% block content %}
+<div class="categories-main">
+  <div class="update-categories">
+    <div class="nav-bar">
+      <ol
+        class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 nav-bar"
+      >
+        <li class="breadcrumb-item text-sm">
+          <button class="btn" id="sidebar-toggle1" type="button">
+            <i class="fa-solid fa-sliders"></i>
+          </button>
+        </li>
+        <li class="breadcrumb-item text-sm">
+          <a
+            class="opacity-5 text-white back-link"
+            href="{{ url_for('admin_page') }}"
+            >Dashboard</a
+          >
+        </li>
+        <li class="breadcrumb-item text-sm">
+          <a
+            class="opacity-5 text-white back-link"
+            href="{{ url_for('categories') }}"
+            >Category List</a
+          >
+        </li>
+        <li
+          class="breadcrumb-item text-sm text-white back-link active"
+          aria-current="page"
+        >
+          Update Category
+        </li>
+      </ol>
+    </div>
+    <div class="row">
+      <!-- Update Category Form -->
+      <div class="col-12 col-lg-6 col-md-6 update-category">
+        <div class="container upd-category">
+          <div class="container update-category-title">
+            <h3 class="underline1">Update Category</h3>
+          </div>
+          <div class="category-form1">
+            <div class="col-xl-9 col-md-9 col-sm-9 update-cat">
+              <!-- Form to update or add a category -->
+              <form method="POST" action="">
+                <!-- Hidden input for category ID -->
+                <input
+                  type="hidden"
+                  name="category_id"
+                  value="{{ category['Categoryid'] if category else '' }}"
+                />
+                <div class="mb-3">
+                  <label for="category" class="category-label"
+                    >Update Category</label
+                  >
+                  <div class="row">
+                    <div class="col-1">
+                      <i class="fa fa-user" id="icon_id"></i>
+                    </div>
+                    <div class="col">
+                      <!-- Input field for category name -->
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="category"
+                        id="category"
+                        placeholder="Enter Category"
+                        value="{{ category['name'] if category else '' }}" required
+                      />
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row-reverse category-btn">
+                    <button
+                      type="submit"
+                      class="btn btn-outline-light3 p-2"
+                      id="add-button"
+                    >
+                      Update
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Table -->
+      <div class="col-12 col-lg-6 col-md-6">
+        <div class="container category-table">
+          <div class="categories-page-title1">
+            <h3 class="underline1">Category Table</h3>
+          </div>
+          <div class="table1">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">CategoryID</th>
+                  <th scope="col">Category</th>
+                  <th scope="col" class="text-update">Update</th>
+                  <th scope="col" class="btn-user">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for category in categories %}
+                <tr>
+                  <th scope="row">{{ category['Categoryid'] }}</th>
+                  <td>{{ category['name'] }}</td>
+                  <td class="btn-update">
+                    <a
+                      href="{{ url_for('updatecategories', category_id=category['Categoryid']) }}"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </a>
+                  </td>
+                  <td class="btn-user">
+                    <a
+                      href="{{ url_for('delete_category', category_id=category['Categoryid']) }}"
+                    >
+                      <i class="fas fa-trash red-icon"></i>
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

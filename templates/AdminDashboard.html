@@ -1,0 +1,179 @@
+{% extends "usernav.html" %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for (category, msg) in messages %}
+    <p class="alert alert-{{ category }}">{{ msg }}</p>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+    <div class="admin-dashboard">
+        <div class="container admin-dashboard-bg">
+            <div class="Admindashboard-title">
+                <h2 class="underline">Admin Dashboard</h2>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 col-sm-4 col-md-6 mb-xl-4 mb-3 d-flex" id="card-bo">
+                    <div class="card flex-fill border-0 illustration"  onclick="window.location.href='/userlist'">
+                        <div class="card-body p-0 d-flex flex-fill" id="card1">
+                            <div class="row g-0 w-100">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                                   <div class="count-text">
+                                    <div class="p-3 m-1">
+                                        <h5>User List</h5>
+                                        <h6 class="mb-0">Total Users</h6>
+                                    </div>
+                                   </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-4 count-part">
+                                        <div class="count-number">
+                                            <p>{{ user_count }}</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-4 col-md-6 mb-xl-4 mb-3 d-flex" id="card-bo">
+                    <div class="card flex-fill border-0 illustration"  onclick="window.location.href='/AdminDashboard'">
+                        <div class="card-body p-0 d-flex flex-fill" id="card1">
+                            <div class="row g-0 w-100">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                                   <div class="count-text">
+                                    <div class="p-3 m-1">
+                                        <h5>Confirmed List</h5>
+                                        <h6 class="mb-0">Total Confirmed</h6>
+                                    </div>
+                                   </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-4 count-part">
+                                    <div class="count-number">
+                                        <p>{{ confirmed_count }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-4 col-md-6 mb-xl-4 mb-3 d-flex" id="card-bo">
+                    <div class="card flex-fill border-0 illustration"  onclick="window.location.href='/requestedbooking'">
+                        <div class="card-body p-0 d-flex flex-fill" id="card1">
+                            <div class="row g-0 w-100">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                                   <div class="count-text">
+                                    <div class="p-3 m-1">
+                                        <h5>Requested List</h5>
+                                        <h6 class="mb-0">Total Requested</h6>
+                                    </div>
+                                   </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-4 count-part">
+                                    <div class="count-number">
+                                        <p>{{ requested_count }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-4 col-md-6 mb-xl-4 mb-3 d-flex" id="card-bo">
+                    <div class="card flex-fill border-0 illustration"  onclick="window.location.href='/eventlist'">
+                        <div class="card-body p-0 d-flex flex-fill" id="card1">
+                            <div class="row g-0 w-100">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                                   <div class="count-text">
+                                    <div class="p-3 m-1">
+                                        <h5>Event List</h5>
+                                        <h6 class="mb-0">Total Events</h6>
+                                    </div>
+                                   </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-4 count-part">
+                                    <div class="count-number">
+                                        <p>{{ event_count }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-4 col-md-6 mb-xl-4 mb-3 d-flex" id="card-bo">
+                    <div class="card flex-fill border-0 illustration"  onclick="window.location.href='/sponsorlist'">
+                        <div class="card-body p-0 d-flex flex-fill" id="card1">
+                            <div class="row g-0 w-100">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                                   <div class="count-text">
+                                    <div class="p-3 m-1">
+                                        <h5>Sponsor List</h5>
+                                        <h6 class="mb-0">Total Sponsors</h6>
+                                    </div>
+                                   </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-4 count-part">
+                                    <div class="count-number">
+                                        <p>{{ sponsor_count }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-4 col-md-6 mb-xl-4 mb-3 d-flex" id="card-bo">
+                    <div class="card flex-fill border-0 illustration"  onclick="window.location.href='/contactlist'">
+                        <div class="card-body p-0 d-flex flex-fill" id="card1">
+                            <div class="row g-0 w-100">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                                   <div class="count-text">
+                                    <div class="p-3 m-1">
+                                        <h5>Message List</h5>
+                                        <h6 class="mb-0">Total Messages</h6>
+                                    </div>
+                                   </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-4 count-part">
+                                    <div class="count-number">
+                                        <p>{{ message_count }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="container admin-dashboard-table">
+                <div class="table-name">
+                    <h3 class="underline">Confirmed Booking</h3>
+                </div>
+                <div class="table-rounded">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">BookingID</th>
+                            <th scope="col">UserName</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Persons</th>
+                            <th scope="col">Message</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for booking in confirmed_bookings %}
+                            <tr>
+                              <th scope="row">{{ booking[0] }}</th>
+                              <td>{{ booking[1] }}</td>
+                              <td>{{ booking[2] }}</td>
+                              <td>{{ booking[3] }}</td>
+                              <td>{{ booking[4] }}</td>
+                              <td>{{ booking[5] }}</td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>                      
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}

@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="{{ url_for('static', filename='css/navbar.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+  
+  
+  </head>
+  <body class="nav-body">  
+    {% if session.get('user_type') == 'admin' %}
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="{{ url_for('dashboard') }}"> 
+        <img class="logo" src="{{ url_for('static', filename='photo/logo2.png') }}" class="carousel-image image-fluid" alt="...">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('admin_page') }}">Admin Dashboard<span class="sr-only">(current)</span></a>
+          </li>
+          {% if session.get('user_type') == 'admin' %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Website Setting
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{url_for('dashboardsetting')}}">Home</a>
+              <a class="dropdown-item" href="{{url_for('aboutsetting')}}">About Us</a>
+              <a class="dropdown-item" href="{{url_for('contactsetting')}}">Contact Us</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin Management
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{url_for('userlist')}}">User List</a>
+              <a class="dropdown-item" href="{{url_for('categories')}}">Category List</a>
+              <a class="dropdown-item" href="{{url_for('sponsorlist')}}">Sponsor List</a>
+              <a class="dropdown-item" href="{{url_for('eventlist')}}">Event List</a>
+              <a class="dropdown-item" href="{{url_for('food')}}">Food List</a>
+              <a class="dropdown-item" href="{{url_for('requestedbooking')}}">Requested Booking List</a>
+              <a class="dropdown-item" href="{{url_for('contactlist')}}">Message List</a>
+              <div class="dropdown-divider"></div>
+                {% if session.get('email') %}
+                <a class="dropdown-item" href="{{url_for('profileupdate')}}">Profile</a>
+                {% else %}
+                <a class="dropdown-item" href="{{url_for('Login')}}">Login</a>
+                {% endif %}
+            </div>
+          </li>
+        {% endif %}
+
+        </ul>
+        
+        <ul class="navbar-nav ml-auto">
+          {% if session.get('user_type') == 'user' %}
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2 search-box search-bar" type="search" placeholder="Search" aria-label="Search" style="width: 250px;">
+              <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          {% elif session.get('user_type') == 'admin' %}
+            <form class="form-inline my-2 my-lg-0" method="POST"action="/searchadminside">
+              <input class="form-control mr-sm-2 search-box search-bar" type="search" name="searchadmin" placeholder="Search" aria-label="Search" style="width: 250px;">
+              <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          {% endif %}
+          
+          <!-- Conditional Rendering Based on User Login -->
+          {% if session.get('email') %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('profileupdate') }}">
+                <img src="{{ session.get('image') }}" alt="Profile Picture" class="profile-img">
+              </a>
+            </li>
+            <li class="nav-item button-part">
+              <a class="btn btn-outline-light1 my-2 my-sm-0" href="{{ url_for('logout') }}">Logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item button-part">
+              <a class="btn btn-outline-light1 my-2 my-sm-0" href="{{ url_for('Login') }}">Login</a>
+            </li>
+            <li class="nav-item button-part">
+              <a class="btn btn-outline-light2 my-2 my-sm-0" href="{{ url_for('SignUp') }}">Sign-Up</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    {% else %}
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="{{ url_for('dashboard') }}"> 
+        <img class="logo" src="{{ url_for('static', filename='photo/logo2.png') }}" class="carousel-image image-fluid" alt="...">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('dashboard') }}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('aboutus') }}">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('ContactUs') }}">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('event') }}">Event</a>
+          </li>
+          {% if session.get('user_type') == 'admin' %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin Management
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{url_for('userlist')}}">User List</a>
+              <a class="dropdown-item" href="{{url_for('categories')}}">Category List</a>
+              <a class="dropdown-item" href="{{url_for('sponsorlist')}}">Sponsor List</a>
+              <a class="dropdown-item" href="{{url_for('eventlist')}}">Event List</a>
+              <a class="dropdown-item" href="{{url_for('requestedbooking')}}">Requested Booking List</a>
+              <div class="dropdown-divider"></div>
+                {% if session.get('email') %}
+                <a class="dropdown-item" href="{{url_for('profileupdate')}}">Profile</a>
+                {% else %}
+                <a class="dropdown-item" href="{{url_for('Login')}}">Login</a>
+                {% endif %}
+            </div>
+          </li>
+        {% endif %}
+
+        </ul>
+        
+        <ul class="navbar-nav ml-auto">
+          <form class="form-inline my-2 my-lg-0" action="/search" method="GET">
+            <input 
+              class="form-control mr-sm-2 search-box search-bar" 
+              type="search" 
+              name="query" 
+              placeholder="Search" 
+              aria-label="Search" 
+              style="width: 250px;">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          
+          <!-- Conditional Rendering Based on User Login -->
+          {% if session.get('email') %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('profileupdate') }}">
+                <img src="{{ session.get('image') }}" alt="Profile Picture" class="profile-img">
+              </a>
+            </li>
+            <li class="nav-item button-part">
+              <a class="btn btn-outline-light1 my-2 my-sm-0" href="{{ url_for('logout') }}">Logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item button-part">
+              <a class="btn btn-outline-light1 my-2 my-sm-0" href="{{ url_for('Login') }}">Login</a>
+            </li>
+            <li class="nav-item button-part">
+              <a class="btn btn-outline-light2 my-2 my-sm-0" href="{{ url_for('SignUp') }}">Sign-Up</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    {% endif %}
+
+    <div class="main">
+      {% block content %}{% endblock %}
+    </div>
+
+    {% if session.get('user_type') == 'admin' %}
+    <footer class="footer pt-4 py-xl-8">
+      <div class="container">
+        <div class="container-fluid">
+          <div class="row justify-content-center footer-contain">
+            <div class="col-12 col-md-11">
+              <div class="py-2 py-md-12 py-xl-12 border-top border-light-subtle">
+                <div class="container-fluid overflow-hidden">
+                  <div class="row gy-4 gy-md-0 align-items-md-center">
+                    <div class="col-xs-12 col-md-12 order-1 order-md-0">
+                      <div class="copyright text-center text-md-start">
+                        &copy; 2024. All Rights Reserved.
+                      </div>
+                    </div>
+    
+                  </div>
+                </div>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    {% else %}
+    <footer class="footer py-4 py-xl-8">
+      <div class="container">
+        <div class="container-fluid">
+          <div class="row justify-content-center footer-contain">
+            <div class="col-12 col-md-11">
+    
+              <section class="">
+                <div class="container-fluid overflow-hidden">
+                  <div class="row">
+                    <div class="col-12 col-md-4 col-lg-4 contact-part">
+                      <div class="widget">
+                        <a href="#!">
+                          <img src="{{url_for('static',filename='photo/logo2.png')}}" alt="BootstrapBrain Logo" class="footer-logo">
+                        </a>
+                      </div>
+                     <div class="footer-contact">
+                      <div class="row foot-cont">
+                        <div class="col-md-1"><i class="fa fa-phone-square icon pr-3 contact-icon1"></i></div>
+                        <div class="col-md-10">(+959) 450097721</div>
+                      </div> 
+                      <div class="row foot-cont">
+                        <div class="col-md-1"><i class="fa fa-paper-plane icon pr-3 contact-icon1"></i></div>
+                        <div class="col-md-10">GATHER-Hub@gmail.com</div>
+                      </div> 
+                      <div class="row foot-cont">
+                        <div class="col-md-1"><i class="fa fa-map icon pr-3 contact-icon1"></i></div>
+                        <div class="col-md-10">507/7 Pyi Yeik Thar Street, Pyay Road, Kamayut Township, Yangon</div>
+                      </div> 
+                     </div>
+    
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                      <div class="widget">
+                        <h4 class="widget-title mb-4 Catego-tit">Event's Categories</h4>
+                        <ul class="list-unstyled Catego">
+                          <li class="mb-2">
+                            <a href="#!" class="Catego-link">Sport</a>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#!" class="Catego-link">Social</a>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#!" class="Catego-link">Fundraising</a>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#!" class="Catego-link">Charity</a>
+                          </li>
+                          <li class="mb-2">
+                            <a href="#!" class="Catego-link">Birthday</a>
+                          </li>
+                          <li class="mb-0">
+                            <a href="#!" class="Catego-link">Festivals</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                      <div class="widget">
+                        <h4 class="widget-title mb-4 Catego-tit">Company</h4>
+                        <ul class="list-unstyled Catego">
+                          <li class="mb-2">
+                            <a href="{{ url_for('aboutus') }}" class="Catego-link">About</a>
+                          </li>
+                          <li class="mb-2">
+                            <a href="{{ url_for('ContactUs') }}" class="Catego-link">Contact</a>
+                          </li>
+                          <li class="mb-2">
+                            <a href="{{ url_for('event') }}" class="Catego-link">Events</a>
+                          </li>
+                          {% if session.get('email') %}
+                          <li class="mb-2">
+                            <a href="{{ url_for('profileupdate') }}" class="Catego-link">Profile</a>
+                          </li>
+                          <li class="mb-0">
+                            <a href="{{ url_for('logout') }}" class="Catego-link">Logout</a>
+                          </li>
+                          {% else %}
+                          <li class="mb-2">
+                            <a href="{{ url_for('Login') }}" class="Catego-link">Login</a>
+                          </li>
+                          <li class="mb-0">
+                            <a href="{{ url_for('SignUp') }}" class="Catego-link">Sign-Up</a>
+                          </li>
+                          {% endif %}
+                          
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+    
+              <div class="py-4 py-md-12 py-xl-12 border-top border-light-subtle">
+                <div class="container-fluid overflow-hidden">
+                  <div class="row gy-4 gy-md-0 align-items-md-center">
+                    <div class="col-xs-12 col-md-12 order-1 order-md-0">
+                      <div class="copyright text-center text-md-start">
+                        &copy; 2024. All Rights Reserved.
+                      </div>
+                    </div>
+    
+                  </div>
+                </div>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    {% endif %}
+
+    
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+            
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></sc
+
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+      <script>
+        var swiper = new Swiper(".mySwiper", {
+          slidesPerView: 3,
+          spaceBetween: 30,
+          slidesPerGroup:1,
+          loop:true,
+          centerSlider:true,
+          fade:true,
+          grabCursor:true,
+          loopFillGroupWithBlank:true,
+          autoplay: {
+            delay: 2000, // Slide every 3 seconds
+            disableOnInteraction: false, 
+        },
+        breakpoints: {
+          1024: {
+              slidesPerView: 4,
+          },
+          768: {
+              slidesPerView: 2, 
+          },
+          480: {
+              slidesPerView: 2, 
+          },
+          320: {
+              slidesPerView: 1,
+          }
+      },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            dynamicBullets:true,
+          },
+        });
+      </script>
+    
+      <script>
+        var swiper = new Swiper(".mySwiper1", {
+          slidesPerView: 2,
+          spaceBetween: 10,
+          slidesPerGroup:1,
+          loop:true,
+          centerSlider:true,
+          fade:true,
+          grabCursor:true,
+          loopFillGroupWithBlank:true,
+          autoplay: {
+            delay: 2000, // Slide every 3 seconds
+            disableOnInteraction: false, 
+        },
+        breakpoints: {
+          1024: {
+              slidesPerView: 2,
+          },
+          768: {
+              slidesPerView: 1, 
+          },
+          480: {
+              slidesPerView: 1, 
+          },
+          320: {
+              slidesPerView: 1,
+          }
+      },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            dynamicBullets:true,
+          },
+        });
+      </script>
+      <script>
+        $(document).ready(function() {
+          // When mouse enters a dropdown item (both the link and the menu)
+          $('.nav-item.dropdown').mouseenter(function() {
+            $(this).children('.dropdown-menu').stop(true, true).slideDown(300); // Slide down the menu
+          });
+      
+          // When mouse leaves the dropdown item (both the link and the menu)
+          $('.nav-item.dropdown').mouseleave(function() {
+            $(this).children('.dropdown-menu').stop(true, true).slideUp(300); // Slide up the menu when mouse leaves
+          });
+        });
+      </script>
+            <script>
+              document.getElementById('imageCircle1').addEventListener('click', function() {
+                document.getElementById('fileInput').click();
+            });
+            
+            function previewImage(event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+            
+                reader.onload = function(e) {
+                    document.getElementById('imagePreview').src = e.target.result;
+                };
+            
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            }
+            </script>
+            <script>
+              // Function to toggle the Requested Bookings table
+    function toggleTable() {
+      var tableContainer = document.getElementById('table-contain');
+      var tableContainer1 = document.getElementById('table-contain1');
+    
+      
+      if (tableContainer.style.display === 'none' || tableContainer.style.display === '') {
+          tableContainer.style.display = 'block';
+          tableContainer1.style.display = 'none';  
+      } else {
+          tableContainer.style.display = 'none'; 
+      }
+    }
+    function toggleTable1() {
+      var tableContainer = document.getElementById('table-contain');
+      var tableContainer1 = document.getElementById('table-contain1');
+    
+      
+      if (tableContainer1.style.display === 'none' || tableContainer1.style.display === '') {
+          tableContainer1.style.display = 'block';
+          tableContainer.style.display = 'none';  
+      } else {
+          tableContainer1.style.display = 'none';  
+      }
+    }
+          </script>
+        
+          <script>
+            $(document).ready(function() {
+              // Initialize Select2 on the multi-select element
+              $('#sponsors').select2({
+                placeholder: "Select sponsors",
+                allowClear: true,
+                minimumResultsForSearch: Infinity,  // Disable the search input field completely
+                width: '100%',                      // Ensure the dropdown width is auto
+                dropdownAutoWidth: true,            // Auto adjust dropdown width
+                closeOnSelect: false                // Keep dropdown open for multiple selection
+              });
+        
+              // Ensure the dropdown is properly displayed and has no search box
+              $('#sponsors').on('select2:opening', function() {
+                var dropdown = $(this).data('select2').$dropdown;
+        
+                // Remove the search box completely and ensure options are displayed
+                dropdown.find('.select2-search').remove();
+        
+                // Force all options to be visible
+                dropdown.find('.select2-results__options').css('height', 'auto');
+              });
+        
+              // You can also bind a click event to make sure it opens correctly
+              $('#sponsors').on('click', function() {
+                $(this).select2('open'); // Open the dropdown manually if needed
+              });
+            });
+          </script>
+          <script>
+            $('#myModal').on('shown.bs.modal', function () {
+              $('#myInput').trigger('focus')
+            })
+          </script>
+      
+        </body>
+    </html>

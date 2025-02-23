@@ -1,0 +1,170 @@
+{% extends "usernav.html" %}
+{% block content %}
+<div class="profile-update">
+    <div class="container profile">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for (category, msg) in messages %}
+            <p class="alert alert-{{category}}">   {{ msg }} </p>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="container profile-info">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <div class="profile-title">
+                        <h3 class="underline">Account Preferences</h3>
+                    </div>
+                    
+                    <div class="profile-information">
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                <div class="profile-body">
+                                    <h5>Username: </h5>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <div class="profile-body">
+                                    <p>{{ username }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                <div class="profile-body">
+                                    <h5>Email: </h5>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <div class="profile-body">
+                                    <p>{{ email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-title">
+                        <h3 class="underline">Update Account</h3>
+                    </div>
+                    <div class="container5">
+                        <form method="POST" action="{{ url_for('profileupdate') }}" enctype="multipart/form-data">
+                            <div class="imagepart-circle">
+                                <div class="image-circle1" id="imageCircle1" onclick="triggerFileInput()">
+                                    <div class="plus-sign">+</div>
+                                    <img id="imagePreview" src="{{ session.get('image') }}" alt="Avatar" class="image-preview">
+                                </div>
+                            </div>
+                            <input type="file" class="form-control-file form-control" name="photo" id="fileInput" style="display: none;" onchange="previewImage(event)" />
+                            <div class="mb-3 update-form">
+                                <label for="exampleInputUserName" class="form-label1">User Name</label>
+                                <div class="row">
+                                    <div class="col"><input type="text" class="form-control" name="username" id="username" aria-describedby="usernameHelp" placeholder="UserName" value="{{ username }}"></div>
+                                </div>
+                                <label for="exampleInputEmail" class="form-label1">Email</label>
+                                <div class="row">
+                                    <div class="col"><input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ email }}"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 update-button">
+                                        <button class="btn btn-outline-light1 my-2 my-sm-0" type="submit">Update</button>
+                                    </div>
+                                    <div class="col-md-8 changepwd">
+                                        <a href="{{ url_for('changepassword') }}" class="Changepassword">Change Password Here!!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-12 col-md-8">
+                    <div class="history-booking-part">
+                        <h1 class="underline">Requested Booking</h1>
+                        <div class="col-md-8 changepwd">
+                            <button class="btn btn-outline-light my-2 my-sm-0" type="submit" id="toggleButton" onclick="toggleTable()">Show Booking History</button>
+                        </div>
+                        <div class="history-table">
+                            <div class="table-contain" id="table-contain">
+                                <table class="table his-table">
+                                    <thead>
+                                        <tr>
+                                            <th>BookingID</th>
+                                            <th>Email</th>
+                                            <th>Address</th>
+                                            <th>Event</th>
+                                            <th>TotalPerson</th>
+                                            <th>Cost</th>
+                                            <th>Message</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for booking in event_detail %}
+                                        <tr>
+                                            <td>{{ booking['requested']['bookingid'] }}</td>
+                                            <td>{{ booking['requested']['email'] }}</td>
+                                            <td>{{ booking['requested']['address'] }}</td>
+                                            <td>{{ booking['event']['name'] }}</td>
+                                            <td>{{ booking['requested']['totalperson'] }}</td>
+                                            <td>{{ booking['requested']['totalcost'] }}</td>
+                                            <td>{{ booking['requested']['message'] }}</td>
+                                            <td class="btn-user">
+                                                <a href="{{ url_for('delete_requested_booking', bookingid=booking['requested']['bookingid']) }}" 
+                                                   onclick="return confirm('Are you sure you want to delete requested booking?');">
+                                                    <i class="fas fa-trash red-icon"></i>
+                                                </a>
+                                            </td>                                            
+                                        </tr>
+                                        {% endfor %}
+                                        <!-- Additional rows can be added here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="history-booking-part">
+                        <h1 class="underline">Confirmed Booking</h1>
+                        <div class="col-md-8 changepwd">
+                            <button class="btn btn-outline-light my-2 my-sm-0" type="button" id="toggleButton" onclick="toggleTable1()">Show Booking History</button>
+                        </div>
+                        <div class="history-table">
+                            <div class="table-contain" id="table-contain1">
+                                <table class="table his-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Booking ID</th>
+                                            <th>User Name</th>
+                                            <th>Email</th>
+                                            <th>Event</th>
+                                            <th>Address</th>
+                                            <th>Total Person</th>
+                                            <th>Message</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for booking in confirmed_bookings %}
+                                        <tr>
+                                            <td>{{ booking['bookingid'] }}</td>
+                                            <td>{{ booking['username'] }}</td>
+                                            <td>{{ booking['email'] }}</td>
+                                            <td>{{ booking['event_name'] }}</td> <!-- Display event name here -->
+                                            <td>{{ booking['address'] }}</td>
+                                            <td>{{ booking['totalperson'] }}</td>
+                                            <td>{{ booking['message'] }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

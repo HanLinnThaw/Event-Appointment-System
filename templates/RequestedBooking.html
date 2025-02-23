@@ -1,0 +1,103 @@
+{% extends "usernav.html" %}
+{% block content %}
+<div class="user-management">
+  <div class="container userlist-container">
+    <div class="nav-bar1">
+      <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 nav-bar">
+        <li class="breadcrumb-item text-sm">
+          <button class="btn" id="sidebar-toggle1" type="button">
+            <i class="fa-solid fa-sliders"></i>
+          </button>
+        </li>
+        <li class="breadcrumb-item text-sm">
+          <a class="opacity-5 text-white back-link" href="{{ url_for('admin_page') }}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item text-sm text-white back-link active" aria-current="page">Requested Booking</li>
+      </ol>
+    </div>
+
+    <div class="confirmed-title">
+      <h3 class="underline">Total Requested</h3>
+    </div>
+    <div class="admin-dashboard-table">
+      <div class="user-card">
+        <div class="col-xl-4 col-sm-4 col-md-6 mb-xl-4 mb-3 d-flex" id="user-card">
+          <div class="card flex-fill border-0 illustration">
+            <div class="card-body p-0 d-flex flex-fill" id="card1">
+              <div class="row g-0 w-100">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                  <div class="count-text">
+                    <div class="p-3 m-1">
+                      <h5>Requested List</h5>
+                      <h6 class="mb-0">Total Requested</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 count-part">
+                  <div class="count-number">
+                    <p>{{ event_with_requested|length }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="confirmed-title">
+        <h3 class="underline">Requested Booking</h3>
+      </div>
+      <div class="table1">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">RequestedID</th>
+              <th scope="col">UserID</th>
+              <th scope="col">Event</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Address</th>
+              <th scope="col">Person</th>
+              <th scope="col">Cost</th>
+              <th scope="col">Message</th>
+              <th scope="col" class="btn-user">Confirm</th>
+              <th scope="col" class="btn-user">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for request in event_with_requested %}
+            <tr>
+              <th scope="row">{{ request['requested']['bookingid'] }}</th>
+              <td>{{ request['requested']['userid'] }}</td>
+              <td>{{ request['event']['name'] }}</td>
+              <td>{{ request['requested']['name'] }}</td>
+              <td>{{ request['requested']['email'] }}</td>
+              <td>{{ request['requested']['phone'] }}</td>
+              <td>{{ request['requested']['address'] }}</td>
+              <td>{{ request['requested']['totalperson'] }}</td>
+              <td>{{ request['requested']['totalcost'] }}</td>
+              <td>{{ request['requested']['message'] }}</td>
+              <td class="btn-user">
+                <form action="{{ url_for('confirm_booking', bookingid=request['requested']['bookingid']) }}" method="post">
+                  <button type="submit" class="btn btn-link p-0" onclick="return confirm('Are you sure you want to confirm this booking?');">
+                    <i class="fas fa-check"></i>
+                  </button>
+                </form>
+              </td>
+              <td class="btn-user">
+                <form action="{{ url_for('delete_for_confirm', bookingid=request['requested']['bookingid']) }}" method="post">
+                    <button type="submit" class="btn btn-link p-0" onclick="return confirm('Are you sure you want to delete this booking?');">
+                        <i class="fas fa-trash red-icon"></i>
+                    </button>
+                </form>
+            </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

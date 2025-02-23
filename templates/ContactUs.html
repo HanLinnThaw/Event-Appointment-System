@@ -1,0 +1,107 @@
+{% extends "usernav.html" %}
+{% block content %}
+    <div class="aboutus-container">
+        <div class="container tex-part">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="alert-container">
+                {% for category, message in messages %}
+                {% if category == "contact_success" %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %} 
+        
+            <div class="row">
+                <div class="col-12 col-md-5">
+                    <div class="about-text">
+                        <div class="contact-tile">
+                            <div class="cont-tit">
+                                <h1>{{setting['maintitle']}}</h1>
+                            </div>
+                            <div class="small-tit">
+                                <h4>{{setting['secondtitle']}}</h4>
+                            </div>
+                            
+                            <p>&emsp;{{setting['paragraph']}}</p>
+                            <div class="contact-address">
+                                <div class="row">
+                                    <div class="col-md-1"><i class="fa fa-phone-square icon pr-3 contact-icon"></i></div>
+                                    <div class="col-md-11">{{setting['phone']}}</div>
+                                </div> 
+                              </div>
+                              <div class="contact-address">
+                                <div class="row">
+                                    <div class="col-md-1"><i class="fa fa-paper-plane icon pr-3 contact-icon" aria-hidden="true"></i></div>
+                                    <div class="col-md-11">{{setting['email']}}</div>
+                              </div>
+                            </div>
+                              <div class="contact-address">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <i class="fa fa-map icon pr-3 contact-icon"></i>
+                                    </div>
+                                    <div class="col-md-11">
+                                        {{setting['location']}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-7 contact-form">
+                    <form class="msg-form" method="POST" action="/ContactUs">
+                        <div class="form-group">
+                            <label for="name" class="h6">User  Name</label>
+                            <div class="input-group border rounded">
+                                <div class="input-group-addon px-2 pt-1">
+                                    <i class="fa fa-user contact-icon"></i>
+                                </div>
+                                <input type="text" name="name" class="form-control" id="name" placeholder="User  Name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="h6">Email</label>
+                            <div class="input-group border rounded">
+                                <div class="input-group-addon px-2 pt-1">
+                                    <i class="fa fa-paper-plane contact-icon"></i>
+                                </div>
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="h6">Phone</label>
+                            <div class="input-group border rounded">
+                                <div class="input-group-addon px-2 pt-1">
+                                    <i class="fa fa-phone-square contact-icon"></i>
+                                </div>
+                                <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone Number" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="h6">Address</label>
+                            <div class="input-group border rounded">
+                                <div class="input-group-addon px-2 pt-1">
+                                    <i class="fa fa-map contact-icon"></i>
+                                </div>
+                                <input type="text" name="address" class="form-control" id="address" placeholder="Address" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="msgus" class="h6">Message</label>
+                            <textarea name="message" id="msgus" cols="10" rows="5" class="form-control bg-light" placeholder="Message" required></textarea>
+                        </div>
+                        <div class="form-group d-flex justify-content-end">
+                            <input type="submit" name="Send" class="btn btn-primary text-white" value="Send message">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends "usernav.html" %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for (category, msg) in messages %}
+    <p class="alert alert-{{ category }}" style="margin-bottom:0px">{{ msg }}</p>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+    <div class="categories-main">
+        <div class="categories">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                <li class="breadcrumb-item text-sm">
+                    <button class="btn" id="sidebar-toggle1" type="button">
+                        <i class="fa-solid fa-sliders"></i>
+                    </button>
+                </li>
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white back-link" href="{{ url_for('admin_page') }}">Dashboard</a></li>
+                <li class="breadcrumb-item text-sm text-white back-link active" aria-current="page">Food List</li>
+            </ol>
+            <div class="row">
+                <div class="col-12 col-xl-6 col-md-6">
+                    <div class="container categories-page-title1">
+                        <h3 class="underline1">Total Food Counts</h3>
+                    </div>
+                    <div class="container-fluid pt-0 us-count-card">   
+                        <div class="col-xl-10 col-sm-10 mb-xl-0 mb-4 d-flex" id="card-bo">
+                            <div class="card flex-fill border-0 illustration">
+                                <div class="card-body p-0" id="card1">
+                                    <div class="row">
+                                        <div class="row">
+                                          <div class="col-12 col-xl-8 col-md-8">
+                                            <div class="p-3 m-1 text-card">
+                                              <h3>Food List</h3>
+                                              <h5 class="mb-0">Total Food Counts</h5>
+                                              <div class="icon-middle">
+                                                <span class="icon"><i class="fa fa-utensils card-icon"></i></span>
+                                              </div>
+                                          </div>
+                                          </div>
+                                          <div class="col-12 col-xl-4 col-md-4 count-part">
+                                            <div class="count-number">
+                                              <p>{{ foods|length }}</p>
+                                          </div>
+                                          </div>
+                                        </div>
+                                        <div class="d-flex flex-row-reverse"></div>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                      </div>
+                </div>
+                <div class="col-12 col-lg-6 col-md-6">
+                    <div class="container">
+                        <div class="container categories-page-title1">
+                            <h3 class="underline1">Add New Food</h3>
+                        </div>
+                        <div class="category-form1">
+                            <div class="col-xl-9 col-md-9 col-sm-9 ml-3 add-categories">
+                                <form method="POST" action="">
+                                    <div class="mb-3">
+                                      <label for="food" class="category-label">Food</label>
+                        
+                                      <div class="row">
+                                        <div class="col-1"><i class="fa fa-utensils" id="icon_id"></i></div>
+                                        <div class="col"><input type="text" class="form-control" name="food" id="food" placeholder="Enter Food" required></div>
+                                    </div>  
+                                    <div class="d-flex flex-row-reverse category-btn">
+                                        <button type="submit" class="btn btn-outline-light3 m-0" id="add-button">Add Food</button>
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Table Section -->
+            <div class="container category-table">
+                <div class="categories-page-title1">
+                    <h3 class="underline1">Food Table</h3>
+                </div>
+                <div class="table1">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Food ID</th>
+                                <th scope="col">Food Name</th>
+                                <th scope="col" class="text-update">Update</th>
+                                <th scope="col" class="btn-user">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for food in foods %}
+                            <tr>
+                                <th scope="row">{{ food.foodid }}</th>
+                                <td>{{ food.foodname }}</td>
+                                <td class="btn-update">
+                                    <a
+                                      href="{{ url_for('updatefood', food_id=food['foodid']) }}"
+                                    >
+                                      <i class="fas fa-edit"></i>
+                                    </a>
+                                  </td>
+                                <td class="btn-user">
+                                    <a href="{{ url_for('delete_food', foodid=food.foodid) }}">
+                                        <i class="fas fa-trash red-icon"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

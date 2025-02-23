@@ -1,0 +1,338 @@
+{% extends "usernav.html" %}
+{% block content %}
+<div class="Event-detail-page">
+    <div class="container detail-info">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for (category, msg) in messages %}
+            <p class="alert alert-{{ category }}">{{ msg }}</p>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="Event-detail-title1">
+            <h1 class="underline">Event Detail Page</h1>
+        </div>
+        <div class="Event-detail-title">
+            <h3 class="underline">{{ event['name'] }}</h3>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-7">
+                <div class="image-part">
+                    <img src="{{event['image']}}" 
+                         class="event-det-img image-fluid" alt="{{ event['name'] }}">
+                </div>
+                <div class="image-part">
+                    <div class="Booking-part">
+                        <h2 class="underline">Booking</h2>
+                    </div>
+                    <div class="Booking-part1">
+                        <h4 class="underline">Make a Booking</h4>
+                    </div>
+                    <form class="Booking-form" method="POST" action="{{ url_for('eventdetail', event_id=event['eventid']) }}" id="bookingForm">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group"> <label for="name" class="h6">User Name</label>
+                                    <div class="input-group border rounded">
+                                        <div class="input-group-addon px-2 pt-1">
+                                        <i class="fa fa-user contact-icon"></i>
+                                        </div> 
+                                        <input type="text" name="name" class="form-control" id="username" placeholder="UserName" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12 col-md-6">
+                                <div class="form-group"> <label for="name" class="h6">Phone</label>
+                                    <div class="input-group border rounded">
+                                        <div class="input-group-addon px-2 pt-1">
+                                      <i class="fa fa-phone-square contact-icon"></i> 
+                                        </div>  <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone Number" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group"> <label for="name" class="h6">Email</label>
+                            <div class="input-group border rounded">
+                                <div class="input-group-addon px-2 pt-1">
+                                <i class="fa fa-paper-plane contact-icon"></i>
+                                </div> 
+                                <input type="text" name="email" class="form-control" id="email" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="form-group"> <label for="name" class="h6">Address</label>
+                            <div class="input-group border rounded">
+                                <div class="input-group-addon px-2 pt-1">
+                                <i class="fa fa-map contact-icon"></i>
+                                </div> 
+                                <input type="text" name="address" class="form-control" id="address" placeholder="Address" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group"> 
+                                    <label for="Total" class="h6">Total Person:</label>
+                                    <div class="input-group border rounded">
+                                        <div class="input-group-addon px-2 pt-1">
+                                            <i class="fa fa-user contact-icon"></i>
+                                        </div> 
+                                        <input type="number" name="Total" class="form-control" id="Total" placeholder="Total" step="1" min="1" required value="1">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="cost" class="h6">Total Cost:</label>
+                                    <div class="input-group border rounded">
+                                        <div class="input-group-addon px-2 pt-1">
+                                            <i class="fa fa-dollar-sign"></i>
+                                        </div> 
+                                        <input type="text" class="form-control" id="cost" name="cost" readonly value="${{ event['price'] }}">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <script>
+                            const pricePerPerson = {{ event['price'] }};
+                        
+                        function updateCost() {
+                            const totalPersons = document.getElementById('Total').value;  
+                            const totalCost = totalPersons * pricePerPerson;  
+                            document.getElementById('cost').value = '$' + totalCost.toFixed(2);  
+                        }
+                        
+                        document.getElementById('Total').addEventListener('input', updateCost);
+                        updateCost();
+                        </script>
+                        
+                        <div class="form-group"> <label for="msg" class="h6">Additional Message</label> <textarea name="message" id="msgus" cols="10" rows="5" class="form-control bg-light textarea" placeholder="Message"></textarea> </div>
+                        <div class="form-group d-flex justify-content-end"> 
+                            {% if session.get('email') %}
+                                <button type="button" class="btn btn-outline-light5" id="makebooking" data-toggle="modal" data-target="#exampleModalCenter">
+                                Make Booking
+                              </button>
+                            {% else %}
+                                <button type="button" class="btn btn-outline-light5" id="makebooking" data-toggle="modal" data-target="#exampleModalCenter" disabled>
+                                Make Booking
+                              </button>
+                            {% endif %}
+                        </div>
+                    
+                </div>
+            </div>
+            <script>
+                // When the Make Booking button is clicked, transfer form data to the modal
+                document.getElementById('makebooking').addEventListener('click', function() {
+                    // Get form values
+                    const username = document.getElementById('username').value;
+                    const phone = document.getElementById('phone').value;
+                    const email = document.getElementById('email').value;
+                    const address = document.getElementById('address').value;
+                    const totalPersons = document.getElementById('Total').value;
+                    const totalCost = document.getElementById('cost').value;
+                    const message = document.getElementById('msgus').value;
+
+            
+                    // Populate the modal with form data
+                    document.getElementById('modalUsername').textContent = username;
+                    document.getElementById('modalPhone').textContent = phone;
+                    document.getElementById('modalEmail').textContent = email;
+                    document.getElementById('modalAddress').textContent = address;
+                    document.getElementById('modalTotalPersons').textContent = totalPersons;
+                    document.getElementById('modalCost').textContent = totalCost;
+                    document.getElementById('modalMessage').textContent = message;
+                });
+                document.getElementById('confirmBookingButton').addEventListener('click', function () {
+                    document.getElementById('bookingForm').submit();
+                });
+            
+            </script>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLongTitle">Booking Information</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-4">
+                <h5>
+                    User Name:
+                </h5>
+            </div>
+            <div class="col-8">
+                <p><span id="modalUsername"></span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <h5>
+                    Phone:
+                </h5>
+            </div>
+            <div class="col-8">
+                <p><span id="modalPhone"></span></span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <h5>
+                    Email:
+                </h5>
+            </div>
+            <div class="col-8">
+                <p><span id="modalEmail"></span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <h5>
+                    Address:
+                </h5>
+            </div>
+            <div class="col-8">
+                <p><span id="modalAddress"></span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <h5>
+                    Total Persons:
+                </h5>
+            </div>
+            <div class="col-8">
+                <p><span id="modalTotalPersons"></span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <h5>
+                    Total Cost:
+                </h5>
+            </div>
+            <div class="col-8">
+                <p><span id="modalCost"></span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <h5>
+                    Additional Message:
+                </h5>
+            </div>
+            <div class="col-8">
+                <p><span id="modalMessage"></span></p>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="submit" class="btn btn-outline-light5" id="confirmBookingButton">Confirm Booking</button>
+    </div>
+  </div>
+</form>
+</div>
+</div>
+
+
+            <div class="col-12 col-md-5">
+                <h4 class="underline">Event's Detail Information</h4>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-3">
+                            <p class="event-titlle-part">Event: </p>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <p class="event-cat">{{ event['name'] }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-3">
+                            <p class="event-titlle-part">Category: </p>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <p class="event-cat">{{ event['category_name'] }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-3">
+                            <p class="event-titlle-part">Available: </p>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <p class="event-cat">{{ event['totalpersons'] }} persons</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-3">
+                            <p class="event-titlle-part">Food: </p>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <p class="event-date">{{ event['foodname'] }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 date">
+                            <i class="fa fa-calendar" aria-hidden="true">:</i>
+                        </div>
+                        <div class="col-md-8">
+                            <p class="event-date">{{ event['date'] }} {{ event['Time'] }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="Event-Information part">
+                    <div class="event-info">
+                        <h4 class="underline">Event's Description</h4>
+                    </div>
+                    <div class="event-info-body">
+                        {{ event['detail'] }}
+                    </div>
+                    <div class="event-supporter">
+                        <div class="Supporter">
+                            <h2 class="underline">
+                                Event's Supporters
+                            </h2>
+                        </div>
+                        <div class="col-12">
+                            <div class="sponsor-card">
+                                <div class="card-img">
+                                    <img class="img-fluid sponsor-card-img1" alt="{{ event['sponsor_name'] }}" 
+                                    src="{{event['sponsor_image']}}">
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ event['sponsor_name'] }}</h4>
+                                    <p class="card-text">{{ event['sponsor_description'] }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>       
+                    </div>
+                </div>
+                </div>
+        </div>
+        <div class="row">
+            
+            <div class="col-12 col-md-7">
+                
+
+                
+            </div>
+            <div class="col-12 col-md-5"></div>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}s
